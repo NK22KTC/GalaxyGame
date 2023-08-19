@@ -1,0 +1,8 @@
+Playerの惑星を歩く挙動
+https://qiita.com/ga-mi-_qiita/items/5c4189b2e23f4973bc0b
+
+rayのマスク
+https://ymgsapo.com/2020/10/24/unity-ray-layer/
+
+四元数
+https://eater.net/quaternions
