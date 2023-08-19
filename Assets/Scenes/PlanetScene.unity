@@ -130,6 +130,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4071999946632476008, guid: 87bae764a27ec83489c64dcea18815a2,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 81eda047e941f5e4c97a760c449e0379, type: 2}
     - target: {fileID: 4071999946632476010, guid: 87bae764a27ec83489c64dcea18815a2,
         type: 3}
       propertyPath: m_Name
@@ -249,7 +254,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: cf942efc084f9fe41a3107ae0b257ff2, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -601,6 +606,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4071999946632476008, guid: 87bae764a27ec83489c64dcea18815a2,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 81eda047e941f5e4c97a760c449e0379, type: 2}
     - target: {fileID: 4071999946632476010, guid: 87bae764a27ec83489c64dcea18815a2,
         type: 3}
       propertyPath: m_Name
@@ -705,6 +715,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4071999946632476008, guid: 87bae764a27ec83489c64dcea18815a2,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 81eda047e941f5e4c97a760c449e0379, type: 2}
     - target: {fileID: 4071999946632476010, guid: 87bae764a27ec83489c64dcea18815a2,
         type: 3}
       propertyPath: m_Name
@@ -834,7 +849,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 693774425}
-  m_LocalRotation: {x: 0.14599523, y: 0.000000015747252, z: -0.0000000023239235, w: 0.9892853}
+  m_LocalRotation: {x: 0.14599521, y: 0.000000017677639, z: -0.0000000026088032, w: 0.9892853}
   m_LocalPosition: {x: -0.49, y: 23.41, z: -9.620001}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1138,7 +1153,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1114354918}
-  m_LocalRotation: {x: 0.14599523, y: 0.000000015747252, z: -0.0000000023239235, w: 0.9892853}
+  m_LocalRotation: {x: 0.14599521, y: 0.000000017677639, z: -0.0000000026088032, w: 0.9892853}
   m_LocalPosition: {x: -0.49, y: 23.41, z: -9.620001}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1225,6 +1240,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Planet_Sphere (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 6318215627275968531, guid: dde2c7bc14dcc1144ace43704b067ec0,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: cf942efc084f9fe41a3107ae0b257ff2, type: 2}
     - target: {fileID: 6318215627275968541, guid: dde2c7bc14dcc1144ace43704b067ec0,
         type: 3}
       propertyPath: m_RootOrder
@@ -1289,6 +1309,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4071999946632476008, guid: 87bae764a27ec83489c64dcea18815a2,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 81eda047e941f5e4c97a760c449e0379, type: 2}
     - target: {fileID: 4071999946632476010, guid: 87bae764a27ec83489c64dcea18815a2,
         type: 3}
       propertyPath: m_Name
@@ -1368,6 +1393,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Planet_Sphere
       objectReference: {fileID: 0}
+    - target: {fileID: 6318215627275968531, guid: dde2c7bc14dcc1144ace43704b067ec0,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: cf942efc084f9fe41a3107ae0b257ff2, type: 2}
     - target: {fileID: 6318215627275968540, guid: dde2c7bc14dcc1144ace43704b067ec0,
         type: 3}
       propertyPath: m_Enabled
@@ -1437,6 +1467,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 8422624003051877529, guid: 752b57bb98afee04dba4a979da74458b,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: cf942efc084f9fe41a3107ae0b257ff2, type: 2}
     - target: {fileID: 8422624003051877530, guid: 752b57bb98afee04dba4a979da74458b,
         type: 3}
       propertyPath: m_Radius
