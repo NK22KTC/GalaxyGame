@@ -8,6 +8,10 @@ TagManager:
   - Planet
   - GravityArea
   - FollowCamera1
+  - FragmentMark
+  - FragmentLight
+  - FragmentGuide
+  - Bullet
   layers:
   - Default
   - TransparentFX
@@ -18,8 +22,8 @@ TagManager:
   - GravityArea
   - Ground
   - 
-  - 
-  - 
+  - Player
+  - Item
   - 
   - 
   - 
