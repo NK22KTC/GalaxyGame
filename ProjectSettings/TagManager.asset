@@ -4,14 +4,9 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - VirtualCamera
-  - Planet
-  - GravityArea
-  - FollowCamera1
-  - FragmentMark
-  - FragmentLight
   - FragmentGuide
-  - Bullet
+  - FragmentLight
+  - FragmentMark
   layers:
   - Default
   - TransparentFX
@@ -19,8 +14,8 @@ TagManager:
   - 
   - Water
   - UI
-  - GravityArea
-  - Ground
+  - 
+  - 
   - 
   - Player
   - Item
