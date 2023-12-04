@@ -4,7 +4,7 @@ using UnityEngine;
 
 public interface IItemDestroyable
 {
-    void DestroyItem();
+    void PassObject();
 }
 
 public interface IFragmentable: IItemDestroyable
