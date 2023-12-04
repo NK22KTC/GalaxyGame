@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerStatusPresenter : MonoBehaviour
+public class PlayerStatusPresenter
 {
     PlayerStatusManager statusManager = new PlayerStatusManager();
     public PlayerStatusManager m_StatusManager => statusManager;

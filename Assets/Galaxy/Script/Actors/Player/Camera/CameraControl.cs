@@ -9,12 +9,12 @@ public class CameraControl : MonoBehaviour
     //PlayerSettings m_PlayerSettings;
 
     PlayerStatePresenter m_StatePresenter;
-    PlayerInputPresenter m_InputPresenter;
+    //PlayerInputPresenter m_InputPresenter;
 
     void Start()
     {
         m_StatePresenter = transform.parent.GetComponent<PlayerManager>().m_StatePresenter;
-        m_InputPresenter = transform.parent.GetComponent<PlayerManager>().m_InputPresenter;
+        //m_InputPresenter = transform.parent.GetComponent<PlayerManager>().m_InputPresenter;
     }
 
     // Update is called once per frame
@@ -28,7 +28,7 @@ public class CameraControl : MonoBehaviour
 
     CameraControl RotateCamera()
     {
-        var rotate_direction = m_InputPresenter.Rotate.y;
+        var rotate_direction = PlayerInputPresenter.Rotate.y;
         // オブジェクトからみて垂直方向を軸として回転させるQuaternionを作成
         Quaternion rot = Quaternion.AngleAxis(rotate_direction * GeneralSettings.Instance.m_PlayerSettings.RotateSpeed, -transform.right);
         

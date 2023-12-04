@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -24,11 +25,16 @@ public class GeneralSettings : ScriptableObject
         }
     }
 
+
+    [SerializeField]
+    private Prehabs Prehabs;
     [SerializeField]
     private PlayerSettings PlayerSettings;
     [SerializeField]
     private EnemySettings EnemySettings;
 
-    public PlayerSettings m_PlayerSettings { get => PlayerSettings; }
-    public EnemySettings m_EnemySettings { get => EnemySettings; }
+
+    public Prehabs m_Prehabs => Prehabs;
+    public PlayerSettings m_PlayerSettings => PlayerSettings;
+    public EnemySettings m_EnemySettings => EnemySettings;
 }

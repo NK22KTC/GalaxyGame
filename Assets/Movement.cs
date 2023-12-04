@@ -54,13 +54,13 @@ public class Movement : MonoBehaviour
             }
             else if (input.magnitude > 0.5f)
             {
-                rb.AddForce(CalculateMovement(sprinting ? sprintSpeed : walkSpeed), ForceMode.VelocityChange);
+                rb.AddForce(CalculateMovement(), ForceMode.VelocityChange);
             }
             else
             {
-                var velocity1 = rb.velocity;
-                velocity1 = new Vector3(velocity1.x * 0.2f * Time.fixedDeltaTime, velocity1.y, velocity1.z * 0.2f * Time.fixedDeltaTime);
-                rb.velocity = velocity1;
+                var velocity = rb.velocity;
+                velocity = new Vector3(velocity.x * 0.2f * Time.fixedDeltaTime, velocity.y, velocity.z * 0.2f * Time.fixedDeltaTime);
+                rb.velocity = velocity;
             }
         } 
 
@@ -68,7 +68,7 @@ public class Movement : MonoBehaviour
         {
             if (input.magnitude > 0.5f)
             {
-                rb.AddForce(CalculateMovement(sprinting ? sprintSpeed * airControl : walkSpeed * airControl), ForceMode.VelocityChange);
+                rb.AddForce(CalculateMovement(), ForceMode.VelocityChange);
             }
             else
             {
@@ -82,31 +82,40 @@ public class Movement : MonoBehaviour
         
     }
 
-    Vector3 CalculateMovement(float _speed)
+    /// <summary>
+    /// <see cref="input"/>の大きさが0.5f以上の時に使う
+    /// </summary>
+    Vector3 CalculateMovement()
     {
-        Vector3 targetVelocity = new Vector3(input.x, 0, input.y);
-        targetVelocity = transform.TransformDirection(targetVelocity);
+        Vector3 targetVelocity = transform.TransformDirection(input.x, 0, input.y);
+        float moveSpeed = (sprinting ? sprintSpeed : walkSpeed) * (grounded ? 1 : airControl);
+        targetVelocity *= moveSpeed;
 
-        targetVelocity *= _speed;
+        Vector3 force = targetVelocity - rb.velocity;
 
-        Vector3 velocity = rb.velocity;
 
-        if(input.magnitude > 0.5f)
-        {
-            Vector3 velocityChange = targetVelocity - velocity;
+        force = new Vector3(Mathf.Clamp(force.x, -maxAcceleration, maxAcceleration),
+                            0,
+                            Mathf.Clamp(force.z, -maxAcceleration, maxAcceleration));
 
-            velocityChange.x = Mathf.Clamp(velocityChange.x, -maxAcceleration, maxAcceleration);
-            velocityChange.z = Mathf.Clamp(velocityChange.z, -maxAcceleration, maxAcceleration);
+        return force;
 
-            velocityChange.y = 0;
+        //ここはif文が必ずtrueになるからifの中身だけ使えばいい
+        //if(input.magnitude > 0.5f)
+        //{
+        //    Vector3 velocityChange = targetVelocity - velocity;
 
-            return velocityChange;
-        }
+        //    velocityChange.x = Mathf.Clamp(velocityChange.x, -maxAcceleration, maxAcceleration);
+        //    velocityChange.z = Mathf.Clamp(velocityChange.z, -maxAcceleration, maxAcceleration);
 
-        else
-        {
-            return new Vector3();
-        }
+        //    velocityChange.y = 0;
+
+        //    return velocityChange;
+        //}
+        //else
+        //{
+        //    return new Vector3();
+        //}
     }
 
 }

@@ -1,13 +1,17 @@
+using Photon.Realtime;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    PlayerManager playerManager;
+
     PlayerStatePresenter m_StateManager;
-    PlayerInputPresenter m_InputPresenter;
 
     Rigidbody rb;
+
+    Vector3 moveDuringJump;  //ジャンプ中の移動方向(ジャンプした瞬間の移動方向を格納)
 
     //プレイヤーの回転する向き
     //1 -> （プレイヤーから見て）時計回り
@@ -16,10 +20,8 @@ public class PlayerController : MonoBehaviour
 
     private void Init()
     {
-        PlayerManager playerManager = GetComponent<PlayerManager>();
-
+        playerManager = GetComponent<PlayerManager>();
         m_StateManager = playerManager.m_StatePresenter;
-        m_InputPresenter = playerManager.m_InputPresenter;
     }
 
     void Start()
@@ -31,13 +33,14 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        Jump();
+        if (m_StateManager.canJump) Jump();
     }
 
     private void LateUpdate()
     {
-        Horizontal_Rotate();
-
+        transform.rotation = LocomotionCalculator.CalcHorizontalRotate(PlayerInputPresenter.Rotate.x, transform);
+        var movedir = LocomotionCalculator.CalcPlayerMovement(rb, playerManager, PlayerInputPresenter.Move);
+        //rb.AddForce(movedir, ForceMode.VelocityChange);
         Move();
     }
 
@@ -45,27 +48,32 @@ public class PlayerController : MonoBehaviour
     {
         if (!m_StateManager.canMove) return;
 
-        Vector3 move_direction = m_InputPresenter.Move.normalized;
-        float moveSpeed = m_InputPresenter.HoldSprint ? GeneralSettings.Instance.m_PlayerSettings.SprintSpeed : GeneralSettings.Instance.m_PlayerSettings.WalkSpeed;
+        Vector3 move_direction = PlayerInputPresenter.Move.normalized;
+        float moveSpeed = PlayerInputPresenter.HoldSprint ? GeneralSettings.Instance.m_PlayerSettings.SprintSpeed : GeneralSettings.Instance.m_PlayerSettings.WalkSpeed;
 
+        //rb.AddForce(transform.TransformDirection(move_direction) * moveSpeed * Time.deltaTime * 50, ForceMode.Acceleration);
         rb.MovePosition(rb.position + transform.TransformDirection(move_direction) * moveSpeed * Time.deltaTime);
     }
 
     public void Jump()
     {
-        if (!m_StateManager.canJump) return;
+        //if (!m_StateManager.canJump) return;
 
-        if (m_InputPresenter.HoldJump)//  もし、スペースキーがおされたなら、  
+        if (PlayerInputPresenter.HoldJump)//  もし、ジャンプキーがおされたなら、
         {
+            moveDuringJump = rb.velocity;
             Debug.Log("Jumped");
-            rb.AddForce(transform.up * GeneralSettings.Instance.m_PlayerSettings.JumpPower * 100);//  上にJumpPower分力をかける
+            rb.AddForce(Vector3.up * GeneralSettings.Instance.m_PlayerSettings.JumpHeight, ForceMode.VelocityChange);
+            //LocomotionCalculator.CalcJump(rb);
             m_StateManager.ChangeGroundState(PlayerGroundState.UnGrounded);
         }
     }
 
-    void OnCollisionEnter(Collision other)//  床オブジェクトに触れた時の処理
+    void OnCollisionStay(Collision other)//  床オブジェクトに触れた時の処理
     {
-        if (other.transform.GetComponent<IGroundable>() == null) return;
+        if (!other.transform.TryGetComponent(out IGroundGimmick ground)) return;
+
+        if (m_StateManager == null) return;
 
         m_StateManager.ChangeGroundState(PlayerGroundState.Grounded);
     }
@@ -82,7 +90,7 @@ public class PlayerController : MonoBehaviour
     {
         if (!m_StateManager.canLook) return;
 
-        rotate_direction = m_InputPresenter.Rotate.x;
+        rotate_direction = PlayerInputPresenter.Rotate.x;
 
         // オブジェクトからみて垂直方向を軸として回転させるQuaternionを作成
         Quaternion rot = Quaternion.AngleAxis(rotate_direction * GeneralSettings.Instance.m_PlayerSettings.RotateSpeed, transform.up);

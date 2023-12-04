@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,7 +16,7 @@ public class PlayerSettings : ScriptableObject, IActorStatus
     public int Power { get => m_PlayerDefaultStatus.power; }
     public float WalkSpeed { get => m_PlayerDefaultStatus.walkSpeed; }
     public float SprintSpeed { get => m_PlayerDefaultStatus.sprintSpeed; }
-    public float JumpPower { get => m_PlayerDefaultStatus.jumpPower; }
+    public float JumpHeight { get => m_PlayerDefaultStatus.jumpHeight; }
     public float MaxAcceleration { get => m_PlayerDefaultStatus.maxAcceleration; }
     public float RotateSpeed { get => m_PlayerDefaultStatus.rotateSpeed; }
     public float AirControl { get => m_PlayerDefaultStatus.airControl; }
@@ -30,7 +31,7 @@ public class PlayerSettings : ScriptableObject, IActorStatus
     public Quaternion LowerQ { get => Quaternion.Euler(MaxAngleY, 0, 0); }
 }
 
-[System.Serializable]
+[Serializable]
 public struct PlayerDefaultStatus
 {
     //体力
@@ -42,7 +43,7 @@ public struct PlayerDefaultStatus
     //走る速度
     public float sprintSpeed;
     //ジャンプする高さ
-    public float jumpPower;
+    public float jumpHeight;
     //加速度の最大値
     public float maxAcceleration;
     //回転速度
@@ -51,7 +52,7 @@ public struct PlayerDefaultStatus
     public float airControl;
 }
 
-[System.Serializable]
+[Serializable]
 public struct CameraSettings
 {
     //y軸の上方向の最大

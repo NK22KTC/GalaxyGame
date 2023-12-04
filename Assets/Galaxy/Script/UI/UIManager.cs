@@ -25,7 +25,7 @@ public class UIManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (m_PlayerManager.m_InputPresenter.SwitchMenu)
+        if (PlayerInputPresenter.SwitchMenu)
         {
             menuDisplay.SetActive(!menuDisplay.activeSelf);
             PlayerGameState newState = menuDisplay.activeSelf ? PlayerGameState.OpeningMenu : PlayerGameState.Operating;
