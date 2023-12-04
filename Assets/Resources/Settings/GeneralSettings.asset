@@ -12,5 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d892f81d1d2a4a6448bb4e3adf2ac94e, type: 3}
   m_Name: GeneralSettings
   m_EditorClassIdentifier: 
+  Prehabs:
+    Player: {fileID: 5523756170793411124, guid: aad7280218553464faece81addbab3bb, type: 3}
+    Camera: {fileID: 0}
+    Enemy: {fileID: 0}
+    Planet: {fileID: 1701700116177203351, guid: 2bd5a6a738f6bb745bb0ae9045fe4065, type: 3}
+    FlagmentGuide: {fileID: 3129155793334995083, guid: ba047ca2d9046d64692e6ad5b1390d51, type: 3}
+    FlagmentLight: {fileID: 5295711741548707964, guid: 8dc6b0950f0185b47bd6eaa9c03de210, type: 3}
+    FlagmentMark: {fileID: 8638596986952588099, guid: 2cc9f5ef1b5aec344b93f05ac909f904, type: 3}
   PlayerSettings: {fileID: 11400000, guid: 1a9a54687ef4d19459c556593ce134a1, type: 2}
   EnemySettings: {fileID: 11400000, guid: abd38e1849540444d9b30235f1711a6f, type: 2}
