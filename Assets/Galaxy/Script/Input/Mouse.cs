@@ -2,13 +2,28 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Mouse
+public enum MouseButtonType
 {
-    private int mouseLeft = 0;
-    private int mouseRight = 1;
-    private int mouseWheel = 2;
+    Left,
+    Right,
+    Wheel
+}
 
-    public int Attack { get => mouseLeft; }
-    public int MouseRight { get => mouseRight; }
-    public int MouseWheel { get => mouseWheel; }
+public class MouseButton
+{
+    private readonly int mouseNum;
+    public int m_MouseNum => mouseNum;
+
+    public static List<MouseButton> m_MouseList = new List<MouseButton>();
+
+    private MouseButton() { }
+
+    public MouseButton(int mouseNum)
+    {
+        this.mouseNum = mouseNum;
+    }
+
+public static readonly MouseButton Attack = new MouseButton(0);
+public static readonly MouseButton MouseRight = new MouseButton(1);
+public static readonly MouseButton MouseWheel = new MouseButton(2);
 }

@@ -2,31 +2,31 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerInputPresenter : MonoBehaviour
+public static class PlayerInputPresenter
 {
-    private PlayerInputManager InputManager = new PlayerInputManager();
+    //private PlayerInputManager InputManager = new PlayerInputManager();
 
     //前後キーを同時に押すと移動しない、左右キーも同様
-    public float MoveRightVec => (Input.GetKey(InputManager.m_Key.MoveRight) ? 1 : 0) - (Input.GetKey(InputManager.m_Key.MoveLeft) ? 1 : 0);
-    public float MoveForwardVec => (Input.GetKey(InputManager.m_Key.MoveForward) ? 1 : 0) - (Input.GetKey(InputManager.m_Key.MoveBehind) ? 1 : 0);
-    public Vector3 Move => new Vector3(MoveRightVec, 0, MoveForwardVec);
+    public static float MoveRightVec => (Input.GetKey(Key.Right.m_KeyCode) ? 1 : 0) - (Input.GetKey(Key.Left.m_KeyCode) ? 1 : 0);
+    public static float MoveForwardVec => (Input.GetKey(Key.Forward.m_KeyCode) ? 1 : 0) - (Input.GetKey(Key.Backward.m_KeyCode) ? 1 : 0);
+    public static Vector3 Move => new Vector3(MoveRightVec, 0, MoveForwardVec);
 
-    public bool SwitchSprint => Input.GetKeyDown(InputManager.m_Key.Sprint);
-    public bool SwitchJump => Input.GetKeyDown(InputManager.m_Key.Jump);
-    public bool SwitchGetItem => Input.GetKeyDown(InputManager.m_Key.GetItem);
-    public bool SwitchTeleport => Input.GetKeyDown(InputManager.m_Key.Teleport);
-    public bool SwitchMenu => Input.GetKeyDown(InputManager.m_Key.Menu);
+    public static bool SwitchSprint => Input.GetKeyDown(Key.Sprint.m_KeyCode);
+    public static bool SwitchJump => Input.GetKeyDown(Key.Jump.m_KeyCode);
+    public static bool SwitchGetItem => Input.GetKeyDown(Key.GetItem.m_KeyCode);
+    public static bool SwitchTeleport => Input.GetKeyDown(Key.Teleport.m_KeyCode);
+    public static bool SwitchMenu => Input.GetKeyDown(Key.Menu.m_KeyCode);
 
-    public bool HoldSprint => Input.GetKey(InputManager.m_Key.Sprint);
-    public bool HoldJump => Input.GetKey(InputManager.m_Key.Jump);
-    public bool HoldGetItem => Input.GetKey(InputManager.m_Key.GetItem);
-    public bool HoldTeleport => Input.GetKey(InputManager.m_Key.Teleport);
+    public static bool HoldSprint => Input.GetKey(Key.Sprint.m_KeyCode);
+    public static bool HoldJump => Input.GetKey(Key.Jump.m_KeyCode);
+    public static bool HoldGetItem => Input.GetKey(Key.GetItem.m_KeyCode);
+    //public bool HoldTeleport => Input.GetKey(InputManager.m_Key.Teleport);
     //public bool HoldMenu => Input.GetKey(key.Menu);
 
-    public bool isWalk => Move.magnitude > 0;
-    public bool isSprint => isWalk && HoldSprint;
+    public static bool isWalk => Move.magnitude > 0;
+    public static bool isSprint => isWalk && HoldSprint;
 
 
-    public Vector2 Rotate => new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
-    public bool SwitchAttack => Input.GetMouseButtonDown(InputManager.m_Mouse.Attack);
+    public static Vector2 Rotate => new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
+    public static bool SwitchAttack => Input.GetMouseButtonDown(MouseButton.Attack.m_MouseNum);
 }

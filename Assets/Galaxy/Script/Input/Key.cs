@@ -4,24 +4,31 @@ using UnityEngine;
 
 public class Key
 {
-    private KeyCode moveForward = KeyCode.W;
-    private KeyCode moveLeft = KeyCode.A;
-    private KeyCode moveBehind = KeyCode.S;
-    private KeyCode moveRight = KeyCode.D;
-    private KeyCode sprint = KeyCode.LeftShift;
-    private KeyCode jump = KeyCode.Space;
-    private KeyCode getItem = KeyCode.F;
-    private KeyCode teleport = KeyCode.T;
-    private KeyCode menu = KeyCode.Escape;
+    private KeyCode keyCode;
+    public KeyCode m_KeyCode => keyCode;
 
+    public static List<Key> m_KeyList = new List<Key>();
 
-    public KeyCode MoveForward { get => moveForward; }
-    public KeyCode MoveLeft { get => moveLeft; }
-    public KeyCode MoveBehind { get => moveBehind; }
-    public KeyCode MoveRight { get => moveRight; }
-    public KeyCode Sprint { get => sprint; }
-    public KeyCode Jump { get => jump; }
-    public KeyCode GetItem { get => getItem; }
-    public KeyCode Teleport { get => teleport; }
-    public KeyCode Menu { get => menu; }
+    private Key() { }
+
+    public Key(KeyCode keyCode)
+    {
+        this.keyCode = keyCode;
+        m_KeyList.Add(this);
+    }
+
+    public void SetNewKey(KeyCode keyCode)  //ÉLÅ[äÑÇËìñÇƒïœçX
+    {
+        this.keyCode = keyCode;
+    }
+
+    public static readonly Key Forward = new Key(KeyCode.W);
+    public static readonly Key Left = new Key(KeyCode.A);
+    public static readonly Key Backward = new Key(KeyCode.S);
+    public static readonly Key Right = new Key(KeyCode.D);
+    public static readonly Key Sprint = new Key(KeyCode.LeftShift);
+    public static readonly Key Jump = new Key(KeyCode.Space);
+    public static readonly Key GetItem = new Key(KeyCode.F);
+    public static readonly Key Teleport = new Key(KeyCode.T);
+    public static readonly Key Menu = new Key(KeyCode.Escape);
 }
