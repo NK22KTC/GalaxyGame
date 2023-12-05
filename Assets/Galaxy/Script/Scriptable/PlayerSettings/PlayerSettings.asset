@@ -17,7 +17,7 @@ MonoBehaviour:
     power: 10
     walkSpeed: 5
     sprintSpeed: 9
-    jumpHeight: 1
+    jumpHeight: 3
     maxAcceleration: 10
     rotateSpeed: 2.5
     airControl: 0.5

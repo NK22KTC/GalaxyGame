@@ -69,11 +69,13 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    void OnCollisionStay(Collision other)//  床オブジェクトに触れた時の処理
+    void OnCollisionEnter(Collision other)//  床オブジェクトに触れた時の処理
     {
+        if (m_StateManager == null) return;
+
         if (!other.transform.TryGetComponent(out IGroundGimmick ground)) return;
 
-        if (m_StateManager == null) return;
+        ground.StartButtle();
 
         m_StateManager.ChangeGroundState(PlayerGroundState.Grounded);
     }

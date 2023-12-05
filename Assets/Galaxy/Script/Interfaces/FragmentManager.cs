@@ -1,10 +1,11 @@
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public interface IItemDestroyable
 {
-    void PassObject();
+    PhotonView PassPhotonView(out PhotonView view);
 }
 
 public interface IFragmentable: IItemDestroyable

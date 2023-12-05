@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 using UnityEngine.Windows;
+using Photon.Realtime;
 
 public class RoomManager : MonoBehaviourPunCallbacks
 {
     public GameObject player;
     [Space]
     public Transform spawnPoint;
+
+    const int maxPlayer = 2;
     // Start is called before the first frame update
     void Start()
     {
@@ -19,7 +22,7 @@ public class RoomManager : MonoBehaviourPunCallbacks
 
     public override void OnConnectedToMaster()
     {
-        base.OnConnectedToMaster();
+        //base.OnConnectedToMaster();
         Debug.Log("Connected to Server");
 
         PhotonNetwork.JoinLobby();
@@ -27,8 +30,11 @@ public class RoomManager : MonoBehaviourPunCallbacks
 
     public override void OnJoinedLobby()
     {
-        base.OnJoinedLobby();
-        PhotonNetwork.JoinOrCreateRoom("test", null, null);
+        //base.OnJoinedLobby();
+        var roomOptions = new RoomOptions();
+        roomOptions.MaxPlayers = maxPlayer;
+
+        PhotonNetwork.JoinOrCreateRoom("test", roomOptions, null);
 
         Debug.Log("We're in the lobby");
         
@@ -36,7 +42,7 @@ public class RoomManager : MonoBehaviourPunCallbacks
 
     public override void OnJoinedRoom()
     {
-        base.OnJoinedRoom();
+        //base.OnJoinedRoom();
         Debug.Log("We're connected and in a room!");
 
         GameObject _player = PhotonNetwork.Instantiate(GeneralSettings.Instance.m_Prehabs.Player.name, spawnPoint.position, Quaternion.identity);

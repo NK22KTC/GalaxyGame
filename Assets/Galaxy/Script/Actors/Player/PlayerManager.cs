@@ -1,8 +1,7 @@
-using Photon.Pun;
-using Photon.Realtime;
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
+using Photon.Pun;
+//using Cysharp.Threading.Tasks;
 
 public class PlayerManager : MonoBehaviour
 {
@@ -12,20 +11,15 @@ public class PlayerManager : MonoBehaviour
 
     PlayerStatusPresenter m_StatusPresenter = new PlayerStatusPresenter();
     PlayerStatePresenter StatePresenter = new PlayerStatePresenter();
-    //PlayerInputPresenter InputPresenter = new PlayerInputPresenter();
-    PlayerControllerPresenter m_ControlPresenter;
+    //PlayerControllerPresenter m_ControlPresenter;
     [SerializeField]
     UIManager uiManager;
 
     public PlayerStatePresenter m_StatePresenter => StatePresenter;
-    //public PlayerInputPresenter m_InputPresenter => InputPresenter;
 
     private void Init()
     {
         rb = GetComponent<Rigidbody>();
-        //m_Camera = GetComponentInChildren<Camera>().gameObject;
-
-        //m_ControlPresenter = new PlayerControllerPresenter(transform, m_Camera.transform);
 
         m_StatePresenter.OnStartPlayState();
         SetUIManager();
@@ -76,11 +70,26 @@ public class PlayerManager : MonoBehaviour
                     m_StatusPresenter.GetFlagment(1).UpdateFlagMark();
                     break;
             }
-            itemFragment.PassObject();
+            //自分が所有しているネットワークオブジェクトかを取得
+            if(!itemFragment.PassPhotonView(out PhotonView view).IsMine)
+            {
+                //自分のでないなら所有権をリクエストする
+                view.RequestOwnership();
+            }
+            else
+            {
+                //自分のであれば即座に削除する
+                PhotonNetwork.Destroy(view);
+            }
 
             Debug.Log(m_StatusPresenter.m_StatusManager.FlagGuide);
             Debug.Log(m_StatusPresenter.m_StatusManager.FlagLight);
             Debug.Log(m_StatusPresenter.m_StatusManager.FlagMark);
         }
+    }
+
+    void DestroyAction(PhotonView view)
+    {
+        PhotonNetwork.Destroy(view);
     }
 }

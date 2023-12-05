@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class GroundManager : MonoBehaviour, IGroundGimmick
 {
-    private bool m_GimmickTriggerd;
-    private bool m_GimmickCleard;
+    private bool m_GimmickTriggerd = false;
+    private bool m_GimmickCleard = false;
 
     public bool GimmickTriggerd => m_GimmickTriggerd;
     public bool GimmickCleard => m_GimmickCleard;
@@ -24,7 +24,10 @@ public class GroundManager : MonoBehaviour, IGroundGimmick
 
     public void StartButtle()
     {
+        if (m_GimmickTriggerd) return;
 
+        Debug.Log("í“¬ŠJn");
+        m_GimmickTriggerd = true;
     }
 
     public void MakeWarpMaker()

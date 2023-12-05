@@ -6,6 +6,6 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Galaxy/Scenes/OfflineSample.unity
-    guid: fff05110530caa746804efd9e759f2eb
+    path: Assets/Galaxy/Scenes/OnlineSample.unity
+    guid: d6280069ba3092e41b8311fd09e518f8
   m_configObjects: {}

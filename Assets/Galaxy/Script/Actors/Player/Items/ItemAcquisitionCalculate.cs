@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-/// <summary> アイテムを取得に使う計算 </summary>
+/// <summary> アイテム取得時に使う計算 </summary>
 public static class ItemAcquisitionCalculate
 {
     public static Collider GetNearestItem(Collider[] items, Vector3 playerPosition)

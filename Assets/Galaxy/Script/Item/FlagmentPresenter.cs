@@ -16,25 +16,29 @@ public class FlagmentPresenter : MonoBehaviourPunCallbacks, IFragmentable, IPunO
         
     }
 
-    public void PassObject()
+    public PhotonView PassPhotonView(out PhotonView view)
     {
-        GetComponent<PhotonView>().TransferOwnership(PhotonNetwork.LocalPlayer);
-        Debug.Log(GetComponent<PhotonView>().Owner);
+        return view = GetComponent<PhotonView>();
     }
 
-    public void OnOwnershipTransfered(PhotonView targetView, Player previousOwner)
+    // IPunOwnershipCallbacks.OnOwnershipTransferedを実装
+    void IPunOwnershipCallbacks.OnOwnershipTransfered(PhotonView targetView, Player previousOwner)
     {
+        Debug.LogFormat("{0}の所有者は{1}になりました。", targetView, previousOwner);
         // ネットワークオブジェクトを削除
-        PhotonNetwork.Destroy(targetView.gameObject);
+        //PhotonNetwork.Destroy(targetView.gameObject);
+        //Debug.Log("aaaaa");
+        //Player player = PhotonNetwork.LocalPlayer;
+        //PhotonNetwork.Destroy(gameObject);  //こっちで破棄を呼び出したらダメかも
     }
 
     // 以下のメソッドも実装しないとエラーが出る
-    public void OnOwnershipTransferFailed(PhotonView targetView, Player previousOwner)
+    void IPunOwnershipCallbacks.OnOwnershipTransferFailed(PhotonView targetView, Player previousOwner)
     {
-
+        
     }
 
-    public void OnOwnershipRequest(PhotonView targetView, Player requestingPlayer)
+    void IPunOwnershipCallbacks.OnOwnershipRequest(PhotonView targetView, Player requestingPlayer)
     {
 
     }
