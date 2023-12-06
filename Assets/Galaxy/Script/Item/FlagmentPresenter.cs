@@ -5,11 +5,16 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class FlagmentPresenter : MonoBehaviourPunCallbacks, IFragmentable, IPunOwnershipCallbacks
+public class FlagmentPresenter : MonoBehaviourPunCallbacks, IFragment, IPunOwnershipCallbacks
 {
     [SerializeField]
     FragmentType fragmentType;
     public FragmentType FragmentType => fragmentType;
+
+
+    private bool ownershipTransfered = false;
+    /// <summary> オブジェクトの所有権が移ったらtrue </summary>
+    public bool OwnershipTransfered => ownershipTransfered;
 
     void Start()
     {
@@ -21,15 +26,11 @@ public class FlagmentPresenter : MonoBehaviourPunCallbacks, IFragmentable, IPunO
         return view = GetComponent<PhotonView>();
     }
 
-    // IPunOwnershipCallbacks.OnOwnershipTransferedを実装
+    // このスクリプトがついているネットワークオブジェクトの所有者が変更された時に呼び出される
     void IPunOwnershipCallbacks.OnOwnershipTransfered(PhotonView targetView, Player previousOwner)
     {
-        Debug.LogFormat("{0}の所有者は{1}になりました。", targetView, previousOwner);
-        // ネットワークオブジェクトを削除
-        //PhotonNetwork.Destroy(targetView.gameObject);
-        //Debug.Log("aaaaa");
-        //Player player = PhotonNetwork.LocalPlayer;
-        //PhotonNetwork.Destroy(gameObject);  //こっちで破棄を呼び出したらダメかも
+        Debug.Log($"{targetView}の所有者は{previousOwner}になりました。");
+        ownershipTransfered = true;
     }
 
     // 以下のメソッドも実装しないとエラーが出る
