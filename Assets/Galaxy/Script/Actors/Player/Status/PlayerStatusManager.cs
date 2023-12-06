@@ -24,9 +24,26 @@ public class PlayerStatusManager
     }
 
     public int FlagGuide => flagGuide;
-    public void UpdateFlagGuide()
+    public int FlagMark => flagMark;
+    public int FlagLight => flagLight;
+    public void UpdateFlag(FragmentType fragmentType)
     {
-        flagGuide += calcFlagment;
+        switch (fragmentType)
+        {
+            case FragmentType.Guide:
+                flagGuide += calcFlagment;
+                //Debug.Log($"flagGuide += {calcFlagment}, {flagGuide}");
+                break;
+            case FragmentType.Mark:
+                flagMark += calcFlagment;
+                //Debug.Log($"flagMark += {calcFlagment}, {flagMark}");
+                break;
+            case FragmentType.Light:
+                flagLight += calcFlagment;
+                //Debug.Log($"flagLight += {calcFlagment}, {flagLight}");
+                break;
+        }
+
         if(flagGuide < 0)
         {
 #if UNITY_EDITOR
@@ -34,24 +51,16 @@ public class PlayerStatusManager
 #endif
             throw new ArgumentOutOfRangeException(nameof(flagGuide), "GuideFlagment ‚ÌŠŽ”‚ª0‚ð‰º‰ñ‚è‚Ü‚µ‚½");
         }
-    }
-    public int FlagMark => flagMark;
-    public void UpdateFlagMark()
-    {
-        flagMark += calcFlagment;
-        if(flagMark < 0)
+
+        if (flagMark < 0)
         {
 #if UNITY_EDITOR
             UnityEditor.EditorApplication.isPaused = true;
 #endif
             throw new ArgumentOutOfRangeException(nameof(flagMark), "MarkFlagment ‚ÌŠŽ”‚ª0‚ð‰º‰ñ‚è‚Ü‚µ‚½");
         }
-    }
-    public int FlagLight => flagLight;
-    public void UpdateFlagLight()
-    {
-        flagLight += calcFlagment;
-        if(flagLight < 0)
+
+        if (flagLight < 0)
         {
 #if UNITY_EDITOR
             UnityEditor.EditorApplication.isPaused = true;

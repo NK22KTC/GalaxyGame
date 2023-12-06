@@ -12,23 +12,33 @@ public class PlayerSettings : ScriptableObject, IActorStatus
     [SerializeField]
     CameraSettings m_CameraSettings;
 
-    public int Hp { get => m_PlayerDefaultStatus.hp; }
-    public int Power { get => m_PlayerDefaultStatus.power; }
-    public float WalkSpeed { get => m_PlayerDefaultStatus.walkSpeed; }
-    public float SprintSpeed { get => m_PlayerDefaultStatus.sprintSpeed; }
-    public float JumpHeight { get => m_PlayerDefaultStatus.jumpHeight; }
-    public float MaxAcceleration { get => m_PlayerDefaultStatus.maxAcceleration; }
-    public float RotateSpeed { get => m_PlayerDefaultStatus.rotateSpeed; }
-    public float AirControl { get => m_PlayerDefaultStatus.airControl; }
+    /// <summary> プレイヤーの体力 </summary>
+    public int Hp => m_PlayerDefaultStatus.hp;
+    /// <summary> プレイヤーの攻撃力 </summary>
+    public int Power => m_PlayerDefaultStatus.power;
+    /// <summary> プレイヤーの歩く速度 </summary>
+    public float WalkSpeed => m_PlayerDefaultStatus.walkSpeed;
+    /// <summary> プレイヤーの走る速度 </summary>
+    public float SprintSpeed => m_PlayerDefaultStatus.sprintSpeed;
+    /// <summary> プレイヤーのジャンプ力 </summary>
+    public float JumpHeight => m_PlayerDefaultStatus.jumpHeight;
+    /// <summary> プレイヤーの速度の最大値(?) </summary>
+    public float MaxAcceleration => m_PlayerDefaultStatus.maxAcceleration;
+    /// <summary> プレイヤーの回転速度 </summary>
+    public float RotateSpeed => m_PlayerDefaultStatus.rotateSpeed;
+    /// <summary> プレイヤーの空気抵抗(?) </summary>
+    public float AirControl => m_PlayerDefaultStatus.airControl;
+    /// <summary> プレイヤーが取得できるアイテムの最大距離 </summary>
+    public float ObtainableDistance => m_PlayerDefaultStatus.obtainableDistance;
 
     /// <summary> y軸の上方向の最大 </summary>
-    public float MinAngleY { get => m_CameraSettings.upperAngleY; }
+    public float MinAngleY => m_CameraSettings.upperAngleY;
     /// <summary> y軸の下方向の最大 </summary>
-    public float MaxAngleY { get => m_CameraSettings.lowerAngleY; }
+    public float MaxAngleY => m_CameraSettings.lowerAngleY;
     /// <summary> y軸の上方向の最大 </summary>
-    public Quaternion UpperQ { get => Quaternion.Euler(MinAngleY, 0, 0); }
+    public Quaternion UpperQ => Quaternion.Euler(MinAngleY, 0, 0);
     /// <summary> y軸の下方向の最大 </summary>
-    public Quaternion LowerQ { get => Quaternion.Euler(MaxAngleY, 0, 0); }
+    public Quaternion LowerQ => Quaternion.Euler(MaxAngleY, 0, 0);
 }
 
 [Serializable]
@@ -50,6 +60,8 @@ public struct PlayerDefaultStatus
     public float rotateSpeed;
     //空気抵抗
     public float airControl;
+    //アイテムを取得できる距離
+    public float obtainableDistance;
 }
 
 [Serializable]

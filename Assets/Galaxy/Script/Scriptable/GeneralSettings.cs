@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary> ゲームプレイ関係する設定や必要なオブジェクトなどをまとめておくクラス </summary>
 [CreateAssetMenu(fileName = "GeneralSettings", menuName = "ScriptableObjects/Create GeneralSettings")]
 public class GeneralSettings : ScriptableObject
 {

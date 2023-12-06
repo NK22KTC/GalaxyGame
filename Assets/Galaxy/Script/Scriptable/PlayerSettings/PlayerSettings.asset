@@ -21,6 +21,7 @@ MonoBehaviour:
     maxAcceleration: 10
     rotateSpeed: 2.5
     airControl: 0.5
+    obtainableDistance: 2.5
   m_CameraSettings:
     upperAngleY: -70
     lowerAngleY: 70

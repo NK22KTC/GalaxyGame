@@ -26,10 +26,11 @@ public class FlagmentPresenter : MonoBehaviourPunCallbacks, IFragment, IPunOwner
         return view = GetComponent<PhotonView>();
     }
 
-    // このスクリプトがついているネットワークオブジェクトの所有者が変更された時に呼び出される
+    // このスクリプトがついているネットワークオブジェクトの所有者が変更された時に呼び出される  (同じプレイヤーが2回以上呼び出すと変なタイミングで呼び出される)
     void IPunOwnershipCallbacks.OnOwnershipTransfered(PhotonView targetView, Player previousOwner)
     {
-        Debug.Log($"{targetView}の所有者は{previousOwner}になりました。");
+        Debug.Log(previousOwner);
+        //Debug.Log($"{targetView}の所有者は{previousOwner}になりました。");
         ownershipTransfered = true;
     }
 
