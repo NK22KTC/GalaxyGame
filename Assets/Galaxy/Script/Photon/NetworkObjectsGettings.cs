@@ -7,12 +7,13 @@ public static class NetworkObjectsGettings
     /// <summary> アイテムのレイヤー </summary>
     private static readonly LayerMask itemLayer = 2 << 9;
 
-    /// <summary> ネットワークオブジェクトの取得を試す,取得できたらnetWorkObjectで返す </summary>
-    private static bool TryGetNetObject<T>(PlayerManager m_PlayerManager, out T netWorkObject) where T : INetWorkObject
+    /// <summary> <see cref="INetWorkObject"/>を継承したinterfaceの取得を試す,取得できたらnetworkObjectで返す </summary>
+    private static bool TryGetNetObject<T>(PlayerManager m_PlayerManager, out T networkObject) where T : INetWorkObject
     {
         //初期値(null)を代入する
-        netWorkObject = default;
+        networkObject = default;
 
+        ///プレイヤー中心,半径が ObtainableDistance の球体で,<see cref="itemLayer">で判定をとるレイヤーを制限する
         var items = Physics.OverlapSphere(m_PlayerManager.transform.position, GeneralSettings.Instance.m_PlayerSettings.ObtainableDistance, itemLayer);
         if (items.Length == 0) { return false; }
 
@@ -20,13 +21,13 @@ public static class NetworkObjectsGettings
 
         if (!nearestItem.TryGetComponent(out T netObj)) { return false; }
 
-        netWorkObject = netObj;
+        networkObject = netObj;
         return true;
     }
 
     private static async UniTask<PhotonView> GetFlagment(PlayerStatusPresenter m_StatusPresenter, IFragment itemFragment)
     {
-        m_StatusPresenter.GetFlagment(1).UpdateFlag(itemFragment.FragmentType);
+        m_StatusPresenter.GetFlagment(1).UpdateFlag(itemFragment.FragmentType);  //責務的にこれは別に移した方がいい
 
         //自分が所有しているネットワークオブジェクトかを取得
         if (!itemFragment.PassPhotonView(out PhotonView view).IsMine)
@@ -41,7 +42,6 @@ public static class NetworkObjectsGettings
 
     private static void DestroyNetObj(PhotonView view)
     {
-        Debug.Log("afterTime : " + Time.time);
         PhotonNetwork.Destroy(view);
     }
 
@@ -49,9 +49,7 @@ public static class NetworkObjectsGettings
     public static async void GetFlagmentProcess(PlayerManager manager)  //相手が所有するネットワークオブジェクトの取得がエラーなしで成功するのが最初の1回しかない
     {
         if (!TryGetNetObject(manager, out IFragment flagment)) { return; }
-        Debug.Log("beforeTime : " + Time.time);
         var view = await GetFlagment(manager.m_StatusPresenter, flagment);
-        await UniTask.WaitForSeconds(0.02f);
         DestroyNetObj(view);
     }
 }
