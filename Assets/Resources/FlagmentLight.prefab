@@ -13,8 +13,9 @@ GameObject:
   - component: {fileID: 1271926348089845021}
   - component: {fileID: 7755671972141792706}
   - component: {fileID: -4494087061285826685}
-  - component: {fileID: -2969819273092600652}
   - component: {fileID: 1884181126806669460}
+  - component: {fileID: -2969819273092600652}
+  - component: {fileID: -7067247455852191516}
   m_Layer: 10
   m_Name: FlagmentLight
   m_TagString: Untagged
@@ -114,6 +115,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &1884181126806669460
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5295711741548707964}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aedd7fe7761e69e4e88a5999f55b1604, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fragmentType: 2
 --- !u!114 &-2969819273092600652
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -132,11 +146,12 @@ MonoBehaviour:
   Synchronization: 3
   OwnershipTransfer: 1
   observableSearch: 2
-  ObservedComponents: []
+  ObservedComponents:
+  - {fileID: -7067247455852191516}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
---- !u!114 &1884181126806669460
+--- !u!114 &-7067247455852191516
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -145,7 +160,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 5295711741548707964}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aedd7fe7761e69e4e88a5999f55b1604, type: 3}
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fragmentType: 2
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 0
+  m_UseLocal: 1
