@@ -1,26 +1,26 @@
 using Photon.Pun;
 
-
-/// <summary> 所有者を変更する </summary>
-public interface ITransfer
-{
-    //bool OwnershipTransfered { get; }
-}
-
 /// <summary> ネットワークオブジェクトを取得する </summary>
 public interface INetworkObject
 {
+    bool DoingTransfer { get; }
+
     /// <summary> if文内でTryGetComponentで取得、自身が所有者でないならoutした変数で所有権をリクエスト </summary>
     PhotonView PassPhotonView(out PhotonView view);
+    /// <summary> 
+    /// ネットワークオブジェクト取得開始時に<see cref="DoingTransfer"></see> をtrueにする
+    /// </summary>
+    void UpdateTransferSituation();
 }
 
 /// <summary> フラグメントの情報を取得する </summary>
-public interface IFragment : INetworkObject, ITransfer
+public interface IFragment : INetworkObject
 {
     public FragmentType FragmentType { get; }
 }
 
-public interface IItem : INetworkObject, ITransfer
+/// <summary> 攻撃アイテムの情報を取得する(仮置き) </summary>
+public interface IItem : INetworkObject
 {
 
 }

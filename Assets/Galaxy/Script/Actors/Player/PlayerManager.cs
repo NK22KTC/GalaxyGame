@@ -1,6 +1,5 @@
 using UnityEngine;
 using Photon.Pun;
-using Photon.Realtime;
 
 public class PlayerManager : MonoBehaviour
 {
@@ -8,11 +7,8 @@ public class PlayerManager : MonoBehaviour
 
     PlayerStatusPresenter StatusPresenter = new PlayerStatusPresenter();
     PlayerStatePresenter StatePresenter = new PlayerStatePresenter();
-    //PlayerControllerPresenter m_ControlPresenter;
     [SerializeField]
     UIManager uiManager;
-
-    readonly LayerMask itemLayer = 2 << 9;
 
     public PlayerStatusPresenter m_StatusPresenter => StatusPresenter;
     public PlayerStatePresenter m_StatePresenter => StatePresenter;
@@ -40,7 +36,7 @@ public class PlayerManager : MonoBehaviour
         
         if (PlayerInputPresenter.SwitchGetItem)
         {
-            NetworkObjectsGettings.GetFlagmentProcess(this);
+            GetItem();
         }
     }
 
@@ -49,5 +45,18 @@ public class PlayerManager : MonoBehaviour
         uiManager = transform.GetComponentInChildren<UIManager>();
         uiManager.ShareValue(this);
         uiManager = null;
+    }
+
+    async void GetItem()
+    {
+        var networkItem = await NetworkObjectsGettings.GetNetworkObject(this);
+        if (networkItem is IFragment)
+        {
+            m_StatusPresenter.GetFlagment(1).UpdateFlag(((IFragment)networkItem).FragmentType);
+        }
+        //if(networkItem is IItem)
+        //{
+            
+        //}
     }
 }

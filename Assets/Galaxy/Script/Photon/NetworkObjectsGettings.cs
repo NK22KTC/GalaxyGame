@@ -20,16 +20,26 @@ public static class NetworkObjectsGettings
 
 
         var nearestItem = ItemAcquisitionCalculate.GetNearestItem(items, m_PlayerManager.transform.position);
-        //INetworkObjectを継承していたら続ける(いらんけど, itemLayer に指定したオブジェクトが INetworkObject を継承してなかったらバグるから置いとく)
+        //INetworkObjectを継承していたら続ける
         if (!nearestItem.TryGetComponent(out T netObj)) { return false; }
+        //既に取得しようとしているネットワークオブジェクトが取得開始されていなければ続ける
+        if(netObj.DoingTransfer) { return false; }
 
         networkObject = netObj;
+        networkObject.UpdateTransferSituation();
         return true;
     }
 
-    private static async UniTask<PhotonView> GetFlagment(PlayerManager m_PlayerManager, IFragment itemFragment)
+    /// <summary> 
+    /// 取得しようとしているアイテムの所有者が自身になるまで待機
+    /// </summary>
+    /// <remarks>
+    /// アイテムの所有者が自身になったら再度処理を開始する
+    /// </remarks>
+    /// <returns> フラグメントのPhotonViewを返す </returns>
+    private static async UniTask<PhotonView> CheckOwner(PlayerManager m_PlayerManager, INetworkObject itemFragment)
     {
-        //自分が所有しているネットワークオブジェクトかを取得
+        //自分が所有しているネットワークオブジェクトかを判別
         if (!itemFragment.PassPhotonView(out PhotonView view).IsMine)
         {
             //自分のでないなら所有権をリクエストする
@@ -40,17 +50,27 @@ public static class NetworkObjectsGettings
         return view;
     }
 
+    /// <summary> 取得したオブジェクトを削除 </summary>
     private static void DestroyNetObj(PhotonView view)
     {
         PhotonNetwork.Destroy(view);
     }
 
     /// <summary> フラグメント以外のアイテムが出てきたら、switch文に変えたい </summary>
-    public static async void GetFlagmentProcess(PlayerManager manager)  //相手が所有するネットワークオブジェクトの取得がエラーなしで成功するのが最初の1回しかない
+    public static async UniTask<INetworkObject> GetNetworkObject(PlayerManager manager)
     {
-        if (!TryGetNetObject(manager, out IFragment flagment)) { return; }  //フラグメント
-        var view = await GetFlagment(manager, flagment);
-        manager.m_StatusPresenter.GetFlagment(1).UpdateFlag(flagment.FragmentType);
+        if (!TryGetNetObject(manager, out INetworkObject flagment)) { return null; }
+        var view = await CheckOwner(manager, flagment);
         DestroyNetObj(view);
+
+        if (view.TryGetComponent(out IFragment flag))
+        {
+            return flag;
+        }
+        else if(view.TryGetComponent(out IItem item))
+        {
+            return item;
+        }
+        return null;
     }
 }
