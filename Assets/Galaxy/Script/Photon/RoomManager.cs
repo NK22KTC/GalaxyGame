@@ -1,8 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
-using UnityEngine.Windows;
 using Photon.Realtime;
 
 public class RoomManager : MonoBehaviourPunCallbacks

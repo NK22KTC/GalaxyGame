@@ -1,8 +1,3 @@
-using Photon.Pun;
-using Photon.Realtime;
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerSetup : MonoBehaviour
@@ -23,15 +18,6 @@ public class PlayerSetup : MonoBehaviour
             {
                 Destroy(setUp.myCamera);
             }
-        }
-
-        if (PhotonNetwork.IsMasterClient)
-        {
-            PhotonNetwork.NickName = "MasterClientPlayer";
-        }
-        else
-        {
-            PhotonNetwork.NickName = "ClientPlayer";
         }
     }
 
