@@ -33,8 +33,7 @@ public class PlayerManager : MonoBehaviour
     void Update()
     {
         PlayerStateUpdater.ChangeState(StatePresenter);
-        
-        if (PlayerInputPresenter.SwitchGetItem)
+        if (m_StatePresenter.canPickUp && PlayerInputPresenter.SwitchGetItem)
         {
             GetItem();
         }

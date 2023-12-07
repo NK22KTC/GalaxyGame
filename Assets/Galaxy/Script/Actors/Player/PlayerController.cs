@@ -38,7 +38,10 @@ public class PlayerController : MonoBehaviour
 
     private void LateUpdate()
     {
-        transform.rotation = LocomotionCalculator.CalcHorizontalRotate(PlayerInputPresenter.Rotate.x, transform);
+        if (m_StateManager.canLook)
+        {
+            transform.rotation = LocomotionCalculator.CalcHorizontalRotate(PlayerInputPresenter.Rotate.x, transform);
+        }
         var movedir = LocomotionCalculator.CalcPlayerMovement(rb, playerManager, PlayerInputPresenter.Move);
         //rb.AddForce(movedir, ForceMode.VelocityChange);
         Move();

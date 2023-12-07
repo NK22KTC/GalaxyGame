@@ -61,7 +61,7 @@ public class PlayerStatePresenter
     public bool isPickUping => StateManager.PickState == PlayerPickState.Picking;
 
     //アイテムを拾えるか(キャラを操作できる && ワープ中でない && 攻撃中でない)
-    public bool canPickUp => canOperate && !isWarping && isAttacking && !isJumping;
+    public bool canPickUp => canOperate && !isWarping && !isAttacking && !isJumping;
 
     public void ChangePickState(PlayerPickState newState) => StateManager.ChangePickState(newState);
 
