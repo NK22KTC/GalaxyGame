@@ -4,23 +4,23 @@ using Photon.Pun;
 /// <summary> 所有者を変更する </summary>
 public interface ITransfer
 {
-    bool OwnershipTransfered { get; }
+    //bool OwnershipTransfered { get; }
 }
 
 /// <summary> ネットワークオブジェクトを取得する </summary>
-public interface INetWorkObject
+public interface INetworkObject
 {
     /// <summary> if文内でTryGetComponentで取得、自身が所有者でないならoutした変数で所有権をリクエスト </summary>
     PhotonView PassPhotonView(out PhotonView view);
 }
 
 /// <summary> フラグメントの情報を取得する </summary>
-public interface IFragment : INetWorkObject, ITransfer
+public interface IFragment : INetworkObject, ITransfer
 {
     public FragmentType FragmentType { get; }
 }
 
-public interface IItem : INetWorkObject, ITransfer
+public interface IItem : INetworkObject, ITransfer
 {
 
 }

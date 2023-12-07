@@ -24,15 +24,24 @@ public class PlayerSetup : MonoBehaviour
                 Destroy(setUp.myCamera);
             }
         }
+
+        if (PhotonNetwork.IsMasterClient)
+        {
+            PhotonNetwork.NickName = "MasterClientPlayer";
+        }
+        else
+        {
+            PhotonNetwork.NickName = "ClientPlayer";
+        }
     }
 
     void ActiveComponent()
     {
-        if (!TryGetComponent<PlayerManager>(out PlayerManager manager))
+        if (!TryGetComponent(out PlayerManager manager))
         {
             manager = gameObject.AddComponent<PlayerManager>();
         }
-        if (!TryGetComponent<PlayerController>(out PlayerController controller))
+        if (!TryGetComponent(out PlayerController controller))
         {
             controller = gameObject.AddComponent<PlayerController>();
         }

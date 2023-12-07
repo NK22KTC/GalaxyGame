@@ -1,5 +1,6 @@
 using UnityEngine;
 using Photon.Pun;
+using Photon.Realtime;
 
 public class PlayerManager : MonoBehaviour
 {
@@ -48,10 +49,5 @@ public class PlayerManager : MonoBehaviour
         uiManager = transform.GetComponentInChildren<UIManager>();
         uiManager.ShareValue(this);
         uiManager = null;
-    }
-
-    void LateUpdate()
-    {
-        
     }
 }
