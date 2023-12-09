@@ -3,6 +3,8 @@ using Photon.Pun;
 
 public class PlayerManager : MonoBehaviour
 {
+    private PhotonView view;
+
     internal GameObject m_Camera;
 
     PlayerStatusPresenter StatusPresenter = new PlayerStatusPresenter();
@@ -15,6 +17,7 @@ public class PlayerManager : MonoBehaviour
 
     private void Init()
     {
+        view = GetComponent<PhotonView>();
         m_StatePresenter.OnStartPlayState();
         SetUIManager();
     }
@@ -52,10 +55,11 @@ public class PlayerManager : MonoBehaviour
         if (networkItem is IFragment)
         {
             m_StatusPresenter.GetFlagment(1).UpdateFlag(((IFragment)networkItem).FragmentType);
+            PhotonNetwork.Destroy(networkItem.PassPhotonView());
         }
-        //if(networkItem is IItem)
-        //{
-            
-        //}
+        if (networkItem is IGameButton)
+        {
+            ((IGameButton)networkItem).Pushing(view);
+        }
     }
 }

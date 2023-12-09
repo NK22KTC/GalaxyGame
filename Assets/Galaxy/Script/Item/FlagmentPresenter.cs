@@ -1,7 +1,4 @@
 using Photon.Pun;
-using Photon.Realtime;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 
@@ -13,6 +10,10 @@ public class FlagmentPresenter : MonoBehaviourPunCallbacks, IFragment
     public FragmentType FragmentType => fragmentType;
     public bool DoingTransfer => doingTransfer;
 
+    public PhotonView PassPhotonView()
+    {
+        return GetComponent<PhotonView>();
+    }
     public PhotonView PassPhotonView(out PhotonView view)
     {
         return view = GetComponent<PhotonView>();

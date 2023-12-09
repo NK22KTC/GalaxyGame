@@ -50,26 +50,19 @@ public static class NetworkObjectsGettings
         return view;
     }
 
-    /// <summary> 取得したオブジェクトを削除 </summary>
-    private static void DestroyNetObj(PhotonView view)
-    {
-        PhotonNetwork.Destroy(view);
-    }
-
     /// <summary> フラグメント以外のアイテムが出てきたら、switch文に変えたい </summary>
     public static async UniTask<INetworkObject> GetNetworkObject(PlayerManager manager)
     {
         if (!TryGetNetObject(manager, out INetworkObject flagment)) { return null; }
         var view = await CheckOwner(manager, flagment);
-        DestroyNetObj(view);
 
         if (view.TryGetComponent(out IFragment flag))
         {
             return flag;
         }
-        else if(view.TryGetComponent(out IItem item))
+        else if(view.TryGetComponent(out IGameButton button))
         {
-            return item;
+            return button;
         }
         return null;
     }

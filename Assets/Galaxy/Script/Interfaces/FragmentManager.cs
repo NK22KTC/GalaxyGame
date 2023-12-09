@@ -5,6 +5,7 @@ public interface INetworkObject
 {
     bool DoingTransfer { get; }
 
+    PhotonView PassPhotonView();
     /// <summary> if文内でTryGetComponentで取得、自身が所有者でないならoutした変数で所有権をリクエスト </summary>
     PhotonView PassPhotonView(out PhotonView view);
     /// <summary> 
