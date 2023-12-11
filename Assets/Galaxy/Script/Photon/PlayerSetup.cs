@@ -7,21 +7,9 @@ public class PlayerSetup : MonoBehaviour
 
     public void IsLocalPlayer(PlayerSetup mySetUp)  //RPC‚ð‚Â‚©‚¤
     {
-        Debug.Log("aaaaaaaaaaaaaaaaa");
-        var playerSetUps = FindObjectsOfType<PlayerSetup>();
-        foreach (var setUp in playerSetUps)
-        {
-            if (setUp == mySetUp)
-            {
-                ActiveComponent();
-                myCamera.SetActive(true);
-            }
-            else
-            {
-                Destroy(setUp.myCamera);
-                Destroy(setUp.myCamvas);
-            }
-        }
+        ActiveComponent();
+        myCamera.SetActive(true);
+        myCamvas.SetActive(true);
     }
 
     void ActiveComponent()
