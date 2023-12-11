@@ -13,7 +13,7 @@ public class GameClearButtonPush : GameClearCondion
     /// </summary>
     /// <see cref="GameClearCondion.UpdateClearCondion"/>
     [PunRPC]
-    public override void UpdateClearCondion(PhotonView view, bool isClear)
+    public override void UpdateClearCondion(int view, bool isClear)
     {
         base.UpdateClearCondion(view, isClear);
     }

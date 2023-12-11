@@ -3,9 +3,11 @@ using UnityEngine;
 public class PlayerSetup : MonoBehaviour
 {
     public GameObject myCamera;
+    public GameObject myCamvas;
 
-    public void IsLocalPlayer(PlayerSetup mySetUp)
+    public void IsLocalPlayer(PlayerSetup mySetUp)  //RPC‚ð‚Â‚©‚¤
     {
+        Debug.Log("aaaaaaaaaaaaaaaaa");
         var playerSetUps = FindObjectsOfType<PlayerSetup>();
         foreach (var setUp in playerSetUps)
         {
@@ -17,6 +19,7 @@ public class PlayerSetup : MonoBehaviour
             else
             {
                 Destroy(setUp.myCamera);
+                Destroy(setUp.myCamvas);
             }
         }
     }

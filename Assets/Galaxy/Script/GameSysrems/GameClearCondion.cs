@@ -2,14 +2,13 @@ using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.tvOS;
 
 public class GameClearCondion : IGameClearCondion
 {
-    protected List<PhotonView> CleardPlayers = new List<PhotonView>();
+    protected List<int> CleardPlayers = new List<int>();
     protected bool isCleard = false;
 
-    public List<PhotonView> m_CleardPlayers => CleardPlayers;
+    public List<int> m_CleardPlayers => CleardPlayers;
     public bool IsCleard => isCleard;
 
     public virtual bool CheckClear()
@@ -23,15 +22,16 @@ public class GameClearCondion : IGameClearCondion
     }
 
     [PunRPC]
-    public virtual void UpdateClearCondion(PhotonView view, bool isClear)
+    public virtual void UpdateClearCondion(int viewId, bool isClear)
     {
+        Debug.Log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
         if (!isClear)
         {
-            CleardPlayers.Remove(view);
+            CleardPlayers.Remove(viewId);
             return;
         }
 
-        CleardPlayers.Add(view);
+        CleardPlayers.Add(viewId);
         isCleard = CheckClear();
 
         if (isCleard)

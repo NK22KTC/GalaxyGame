@@ -303,6 +303,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   myCamera: {fileID: 5523756171209599834}
+  myCamvas: {fileID: 5523756170497644341}
 --- !u!1 &5523756171136901515
 GameObject:
   m_ObjectHideFlags: 0

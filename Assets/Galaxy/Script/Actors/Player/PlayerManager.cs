@@ -7,12 +7,12 @@ public class PlayerManager : MonoBehaviour
 
     internal GameObject m_Camera;
 
-    PlayerStatusPresenter StatusPresenter = new PlayerStatusPresenter();
+    PlayerStatusManager StatusManager = new PlayerStatusManager();
     PlayerStatePresenter StatePresenter = new PlayerStatePresenter();
     [SerializeField]
     UIManager uiManager;
 
-    public PlayerStatusPresenter m_StatusPresenter => StatusPresenter;
+    public PlayerStatusManager m_StatusManager => StatusManager;
     public PlayerStatePresenter m_StatePresenter => StatePresenter;
 
     private void Init()
@@ -25,12 +25,12 @@ public class PlayerManager : MonoBehaviour
     void Start()
     {
         Init();
-        PhotonNetwork.Instantiate(GeneralSettings.Instance.m_Prehabs.FlagmentGuide.name, new Vector3(0, 3, 0), Quaternion.identity);
-        PhotonNetwork.Instantiate(GeneralSettings.Instance.m_Prehabs.FlagmentLight.name, new Vector3(0, 3, 1), Quaternion.identity);
-        PhotonNetwork.Instantiate(GeneralSettings.Instance.m_Prehabs.FlagmentMark.name, new Vector3(0, 3, -1), Quaternion.identity);
-        PhotonNetwork.Instantiate(GeneralSettings.Instance.m_Prehabs.FlagmentGuide.name, new Vector3(0, 3, 0), Quaternion.identity);
-        PhotonNetwork.Instantiate(GeneralSettings.Instance.m_Prehabs.FlagmentLight.name, new Vector3(0, 3, 1), Quaternion.identity);
-        PhotonNetwork.Instantiate(GeneralSettings.Instance.m_Prehabs.FlagmentMark.name, new Vector3(0, 3, -1), Quaternion.identity);
+        //PhotonNetwork.Instantiate(GeneralSettings.Instance.m_Prehabs.FlagmentGuide.name, new Vector3(0, 3, 0), Quaternion.identity);
+        //PhotonNetwork.Instantiate(GeneralSettings.Instance.m_Prehabs.FlagmentLight.name, new Vector3(0, 3, 1), Quaternion.identity);
+        //PhotonNetwork.Instantiate(GeneralSettings.Instance.m_Prehabs.FlagmentMark.name, new Vector3(0, 3, -1), Quaternion.identity);
+        //PhotonNetwork.Instantiate(GeneralSettings.Instance.m_Prehabs.FlagmentGuide.name, new Vector3(0, 3, 0), Quaternion.identity);
+        //PhotonNetwork.Instantiate(GeneralSettings.Instance.m_Prehabs.FlagmentLight.name, new Vector3(0, 3, 1), Quaternion.identity);
+        //PhotonNetwork.Instantiate(GeneralSettings.Instance.m_Prehabs.FlagmentMark.name, new Vector3(0, 3, -1), Quaternion.identity);
     }
 
     void Update()
@@ -54,7 +54,7 @@ public class PlayerManager : MonoBehaviour
         var networkItem = await NetworkObjectsGettings.GetNetworkObject(this);
         if (networkItem is IFragment)
         {
-            m_StatusPresenter.GetFlagment(1).UpdateFlag(((IFragment)networkItem).FragmentType);
+            PlayerStatusPresenter.GetFlagment(m_StatusManager, 1).UpdateFlag(((IFragment)networkItem).FragmentType);
             PhotonNetwork.Destroy(networkItem.PassPhotonView());
         }
         if (networkItem is IGameButton)

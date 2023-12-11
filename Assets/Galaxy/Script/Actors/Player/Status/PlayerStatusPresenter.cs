@@ -1,38 +1,35 @@
 
-public class PlayerStatusPresenter
+public static class PlayerStatusPresenter
 {
-    PlayerStatusManager statusManager = new PlayerStatusManager();
-    public PlayerStatusManager m_StatusManager => statusManager;
-
     /// <summary> ˆø”‚Í•K‚¸{‚Ì’l‚É‚µ‚Ä‚­‚¾‚³‚¢ </summary>
-    public PlayerStatusManager Damage(uint damage)
+    public static PlayerStatusManager Damage(PlayerStatusManager statusManager, uint damage)
     {
         statusManager.calcHp = (int)-damage;
         return statusManager;
     }
 
     /// <summary> ˆø”‚Í•K‚¸{‚Ì’l‚É‚µ‚Ä‚­‚¾‚³‚¢ </summary>
-    public PlayerStatusManager Heal(uint heal)
+    public static PlayerStatusManager Heal(PlayerStatusManager statusManager, uint heal)
     {
         statusManager.calcHp = (int)heal;
         return statusManager;
     }
 
-    public PlayerStatusManager Respawn()
+    public static PlayerStatusManager Respawn(PlayerStatusManager statusManager)
     {
         statusManager.calcHp = GeneralSettings.Instance.m_PlayerSettings.Hp;
         return statusManager;
     }
 
     /// <summary> ˆø”‚Í•K‚¸{‚Ì’l‚É‚µ‚Ä‚­‚¾‚³‚¢ </summary>
-    public PlayerStatusManager GetFlagment(uint getFlagment)
+    public static PlayerStatusManager GetFlagment(PlayerStatusManager statusManager, uint getFlagment)
     {
         statusManager.calcFlagment = (int)getFlagment;
         return statusManager;
     }
 
     /// <summary> ˆø”‚Í•K‚¸{‚Ì’l‚É‚µ‚Ä‚­‚¾‚³‚¢ </summary>
-    public PlayerStatusManager UseFlagment(uint useFlagment)
+    public static PlayerStatusManager UseFlagment(PlayerStatusManager statusManager, uint useFlagment)
     {
         statusManager.calcFlagment = (int)-useFlagment;
         return statusManager;

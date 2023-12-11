@@ -3,18 +3,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameButtonPresenter : MonoBehaviour, IGameButton
+public class GameButtonPresenter : MonoBehaviourPunCallbacks, IGameButton
 {
     [SerializeField] 
     private Transform gameButton;
-
-    private bool doingTransfer = false;
+    private GameManager gameManager => FindObjectOfType<GameManager>();
 
     private GameButtonManager GameButtonManager;
     public GameButtonManager m_GameButtonManager => GameButtonManager;
     public bool IsPushed => GameButtonManager.IsPushed;
 
+    private bool doingTransfer = false;
     public bool DoingTransfer => doingTransfer;
+
+    [PunRPC] private void ChangePushState() => m_GameButtonManager.ChangePushState();
+    private void UpdateClearCondion(int ViewID) => gameManager.UpdateClearCondion(ViewID);
 
     void Start()
     {
@@ -23,8 +26,18 @@ public class GameButtonPresenter : MonoBehaviour, IGameButton
 
     public void Pushing(PhotonView view)
     {
-        m_GameButtonManager.ChangePushState(view);
+        foreach (var item in gameManager.m_IGameClearCondion.m_CleardPlayers)
+        {
+            if(item == view.ViewID)
+            {
+                return;
+            }
+        }
+
+        GetComponent<PhotonView>().RPC(nameof(ChangePushState), RpcTarget.AllBuffered);
+        gameManager.m_View.RPC(nameof(UpdateClearCondion), RpcTarget.AllBuffered, view.ViewID);
     }
+
     public PhotonView PassPhotonView()
     {
         return GetComponent<PhotonView>();

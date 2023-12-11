@@ -1,4 +1,6 @@
 
+using UnityEngine;
+
 public static class PlayerStateUpdater
 {
     /// <summary> 5”Ô–Ú‚Éˆ—</summary>
@@ -55,7 +57,6 @@ public static class PlayerStateUpdater
         m_StateManager.ChangePickState( UpdatePickState(m_StateManager) );
         m_StateManager.ChangeGroundState( UpdateGroundState(m_StateManager) );
         m_StateManager.ChangeMoveState( UpdateMoveState(m_StateManager) );
-
         return m_StateManager;
     }
 }
