@@ -1,23 +1,39 @@
 using System;
 using UnityEngine;
 
-public class PlayerStatusManager
+public class PlayerStatusManager : IActorStatus, IHitPointHandler
 {
     private int hp;
-    public int calcHp;
 
     private int flagGuide = 0;
     private int flagMark = 0;
     private int flagLight = 0;
     public int calcFlagment;
 
-    public int Hp => hp;
-    public void UpdateHp()
+    public int m_Hp => hp;
+    public int m_Power => GeneralSettings.Instance.m_PlayerSettings.Power;
+
+    public PlayerStatusManager()
     {
-        hp += calcHp;
-        if(hp < 0)
+        hp = GeneralSettings.Instance.m_PlayerSettings.Hp;
+    }
+
+    public void Heal(int healNum)
+    {
+        if(hp + healNum > GeneralSettings.Instance.m_PlayerSettings.Hp)
         {
-            hp = 0;
+            hp = GeneralSettings.Instance.m_PlayerSettings.Hp;
+            return;
+        }
+        hp += healNum;
+    }
+
+    public void Damage(int damageNum)
+    {
+        hp -= damageNum;
+        if (hp > 0)
+        {
+            //deathˆ—
         }
     }
 

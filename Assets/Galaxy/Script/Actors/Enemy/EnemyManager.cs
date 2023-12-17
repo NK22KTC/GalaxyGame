@@ -2,25 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyManager
+public class EnemyManager : IActors
 {
-    private int hp;
-    private int power;
+    EnemyStatusManager EnemyStatusManager = new EnemyStatusManager();
+
     private float walkSpeed;
 
-    public int Hp { get =>  hp; }
-    public int Power { get =>  power; }
+    public EnemyStatusManager m_EnemyStatusManager => EnemyStatusManager;
+
     public float WalkSpeed { get => walkSpeed; }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public IActorStatus m_ActorStatus => EnemyStatusManager;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public IHitPointHandler m_HitPointHandler => throw new System.NotImplementedException();
 }

@@ -1,17 +1,24 @@
 
 public interface IActorStatus
 {
-    public int Hp { get; }
-    public int Power { get; }
+    public int m_Hp { get; }
+    public int m_Power { get; }
 }
 
-public interface IDamagable
+public interface IHitPointHandler
 {
-    void Damage();
+    void Heal(int healNum);
+    void Damage(int damageNum);
+}
+
+public interface IStateHander
+{
     void Death();
+    void Respawn();
 }
 
-public interface IRespawnable
+public interface IActors
 {
-    void Respawn();
+    IActorStatus m_ActorStatus { get; }
+    IHitPointHandler m_HitPointHandler { get; }
 }

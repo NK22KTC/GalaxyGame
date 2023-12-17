@@ -1,19 +1,23 @@
 using UnityEngine;
 using Photon.Pun;
 
-public class PlayerManager : MonoBehaviour
+public class PlayerManager : MonoBehaviour, IActors
 {
     private PhotonView view;
 
     internal GameObject m_Camera;
 
-    PlayerStatusManager StatusManager = new PlayerStatusManager();
-    PlayerStatePresenter StatePresenter = new PlayerStatePresenter();
+    private PlayerStatusManager StatusManager = new PlayerStatusManager();
+    private PlayerStatePresenter StatePresenter = new PlayerStatePresenter();
     [SerializeField]
     UIManager uiManager;
 
     public PlayerStatusManager m_StatusManager => StatusManager;
     public PlayerStatePresenter m_StatePresenter => StatePresenter;
+
+    public IActorStatus m_ActorStatus => m_StatusManager;
+
+    public IHitPointHandler m_HitPointHandler => m_StatusManager;
 
     private void Init()
     {

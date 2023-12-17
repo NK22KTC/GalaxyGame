@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "PlayerSettings", menuName = "ScriptableObjects/Create PlayerSettings")]
-public class PlayerSettings : ScriptableObject, IActorStatus
+public class PlayerSettings : ScriptableObject
 {
     [SerializeField]
     PlayerDefaultStatus m_PlayerDefaultStatus;

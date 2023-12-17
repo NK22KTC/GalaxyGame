@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "EnemySettings", menuName = "ScriptableObjects/Create EnemySettings")]
-public class EnemySettings : ScriptableObject, IActorStatus
+public class EnemySettings : ScriptableObject
 {
     //‘Ì—Í
     [SerializeField]
