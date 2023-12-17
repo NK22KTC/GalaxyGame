@@ -42,6 +42,9 @@ MonoBehaviour:
   - UpdateClearCondion
   - TestRpc
   - ChangePushState
+  - StartButtle
+  - InstantiateTest
+  - StartGimmick
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1
