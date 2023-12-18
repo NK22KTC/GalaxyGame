@@ -18,11 +18,11 @@ public class EnemyStatusManager : IActorStatus, IHitPointHandler
     {
         hp = GeneralSettings.Instance.m_EnemySettings.Hp;
         this.netObj = netObj;
-        Debug.Log(this.netObj);
     }
 
     public void Heal(int healNum)
     {
+        //“G‚Ì‘Ì—Í‚ğ‰ñ•œ‚³‚¹‚é–‚Í‘½•ª‚È‚¢‚©‚ç‚Æ‚è‚ ‚¦‚¸ƒRƒƒ“ƒg‚Å
         //hp += healNum;
     }
 
@@ -31,12 +31,12 @@ public class EnemyStatusManager : IActorStatus, IHitPointHandler
         hp -= damageNum;
         if(hp <= 0)
         {
-            var view = await NetworkObjectsGettings.CheckOwner(manager, netObj);
-            DestroyObj(view);
+            await NetworkObjectsGettings.CheckOwner(manager, netObj);
+            DestroyObj();
         }
     }
 
-    void DestroyObj(PhotonView view)
+    void DestroyObj()
     {
         PhotonNetwork.Destroy(netObj.PassPhotonView());
     }
