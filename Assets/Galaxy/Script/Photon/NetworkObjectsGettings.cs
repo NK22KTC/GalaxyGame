@@ -46,8 +46,6 @@ public static class NetworkObjectsGettings
             view.RequestOwnership();
             //Ž©g‚ÉŠ—LŒ ‚ªˆÚ‚é‚Ü‚Å‘Ò‹@
             await UniTask.WaitUntil(() => view.Owner == m_PlayerManager.GetComponent<PhotonView>().Owner);
-            Debug.Log(view.Owner);
-            Debug.Log(m_PlayerManager.GetComponent<PhotonView>().Owner);
         }
         return view;
     }

@@ -29,7 +29,6 @@ public class EnemyStatusManager : IActorStatus, IHitPointHandler
     public async void Damage(int damageNum, PlayerManager manager)
     {
         hp -= damageNum;
-        Debug.Log(hp);
         if(hp <= 0)
         {
             var view = await NetworkObjectsGettings.CheckOwner(manager, netObj);
