@@ -1,7 +1,7 @@
 using UnityEngine;
 using Photon.Pun;
 
-public class PlayerManager : MonoBehaviour, IActors
+public class PlayerManager : MonoBehaviour, IPlayer
 {
     private PhotonView view;
 
@@ -9,11 +9,13 @@ public class PlayerManager : MonoBehaviour, IActors
 
     private PlayerStatusManager StatusManager = new PlayerStatusManager();
     private PlayerStatePresenter StatePresenter = new PlayerStatePresenter();
+    private PlayerAttackManager AttackManager;
     [SerializeField]
     UIManager uiManager;
 
     public PlayerStatusManager m_StatusManager => StatusManager;
     public PlayerStatePresenter m_StatePresenter => StatePresenter;
+    public PlayerAttackManager m_AttackManager => AttackManager;
 
     public IActorStatus m_ActorStatus => m_StatusManager;
 
@@ -21,6 +23,8 @@ public class PlayerManager : MonoBehaviour, IActors
 
     private void Init()
     {
+        AttackManager = AttackManager = new PlayerAttackManager(gameObject, m_Camera);
+
         view = GetComponent<PhotonView>();
         m_StatePresenter.OnStartPlayState();
         SetUIManager();
@@ -43,6 +47,14 @@ public class PlayerManager : MonoBehaviour, IActors
         if (m_StatePresenter.canPickUp && PlayerInputPresenter.SwitchGetItem)
         {
             GetItem();
+        }
+
+        if (m_StatePresenter.isAttacking)
+        {
+            m_AttackManager.GenerateBullet();
+//#if UNITY_EDITOR
+//            UnityEditor.EditorApplication.isPaused = true;
+//#endif
         }
     }
 

@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 4981856363069663287}
   - component: {fileID: 3405760847157934776}
   - component: {fileID: 436685626188729536}
+  - component: {fileID: 930443704}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -133,7 +134,7 @@ MonoBehaviour:
   Group: 0
   prefixField: -1
   Synchronization: 3
-  OwnershipTransfer: 0
+  OwnershipTransfer: 1
   observableSearch: 2
   ObservedComponents:
   - {fileID: 3405760847157934776}
@@ -173,6 +174,18 @@ MonoBehaviour:
   m_SynchronizeAngularVelocity: 0
   m_TeleportEnabled: 0
   m_TeleportIfDistanceGreaterThan: 3
+--- !u!114 &930443704
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5620736194322478501}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d04cc8d80a99e8b45aa2e7988d29261d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7386178247224696410
 GameObject:
   m_ObjectHideFlags: 0

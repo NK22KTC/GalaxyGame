@@ -28,7 +28,7 @@ public class PlayerStatusManager : IActorStatus, IHitPointHandler
         hp += healNum;
     }
 
-    public void Damage(int damageNum)
+    public void Damage(int damageNum, PlayerManager manager)
     {
         hp -= damageNum;
         if (hp > 0)

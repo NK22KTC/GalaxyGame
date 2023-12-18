@@ -1091,17 +1091,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2761391454385706142, guid: 0d96219326fe8ae49b8c046ebe90ad97, type: 3}
-      propertyPath: m_Constraints
-      value: 80
-      objectReference: {fileID: 0}
     - target: {fileID: 4981856363069663287, guid: 0d96219326fe8ae49b8c046ebe90ad97, type: 3}
       propertyPath: sceneViewId
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 4981856363069663287, guid: 0d96219326fe8ae49b8c046ebe90ad97, type: 3}
+      propertyPath: OwnershipTransfer
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5620736194322478501, guid: 0d96219326fe8ae49b8c046ebe90ad97, type: 3}
       propertyPath: m_Name
       value: Enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 5620736194322478501, guid: 0d96219326fe8ae49b8c046ebe90ad97, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8412809448386550796, guid: 0d96219326fe8ae49b8c046ebe90ad97, type: 3}
       propertyPath: m_RootOrder

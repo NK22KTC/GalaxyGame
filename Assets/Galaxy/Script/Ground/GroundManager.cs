@@ -43,11 +43,11 @@ public class GroundManager : MonoBehaviour, IGroundGimmick
 
     void Instantiates()
     {
-        PhotonNetwork.Instantiate(GeneralSettings.Instance.m_Prehabs.FlagmentGuide.name, transform.position + new Vector3(0, 3, 0), Quaternion.identity);
-        PhotonNetwork.Instantiate(GeneralSettings.Instance.m_Prehabs.FlagmentLight.name, transform.position + new Vector3(0, 3, 1), Quaternion.identity);
-        PhotonNetwork.Instantiate(GeneralSettings.Instance.m_Prehabs.FlagmentMark.name, transform.position + new Vector3(0, 3, -1), Quaternion.identity);
-        PhotonNetwork.Instantiate(GeneralSettings.Instance.m_Prehabs.FlagmentGuide.name, transform.position + new Vector3(0, 3, 0), Quaternion.identity);
-        PhotonNetwork.Instantiate(GeneralSettings.Instance.m_Prehabs.FlagmentLight.name, transform.position + new Vector3(0, 3, 1), Quaternion.identity);
-        PhotonNetwork.Instantiate(GeneralSettings.Instance.m_Prehabs.FlagmentMark.name, transform.position + new Vector3(0, 3, -1), Quaternion.identity);
+        //PhotonNetwork.Instantiate(GeneralSettings.Instance.m_Prehabs.Enemy.name, transform.position + new Vector3(0, 3, 0), Quaternion.identity);
+        //PhotonNetwork.Instantiate(GeneralSettings.Instance.m_Prehabs.Enemy.name, transform.position + new Vector3(0, 3, 1), Quaternion.identity);
+        //PhotonNetwork.Instantiate(GeneralSettings.Instance.m_Prehabs.Enemy.name, transform.position + new Vector3(0, 3, -1), Quaternion.identity);
+        //PhotonNetwork.Instantiate(GeneralSettings.Instance.m_Prehabs.Enemy.name, transform.position + new Vector3(0, 3, 0), Quaternion.identity);
+        //PhotonNetwork.Instantiate(GeneralSettings.Instance.m_Prehabs.Enemy.name, transform.position + new Vector3(0, 3, 1), Quaternion.identity);
+        PhotonNetwork.Instantiate(GeneralSettings.Instance.m_Prehabs.Enemy.name, transform.position + new Vector3(0, 3, -1), Quaternion.identity);
     }
 }

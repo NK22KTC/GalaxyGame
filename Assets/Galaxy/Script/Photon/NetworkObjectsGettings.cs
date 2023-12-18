@@ -7,7 +7,7 @@ public static class NetworkObjectsGettings
     /// <summary> アイテムのレイヤー </summary>
     private static readonly LayerMask itemLayer = 2 << 9;
 
-    /// <summary> <see cref="INetworkObject"/>を継承したinterfaceの取得を試す,取得できたらnetworkObjectで返す </summary>
+    /// <summary> <see cref="INetworkObject"/>を継承したitemの取得を試す,取得できたらnetworkObjectで返す </summary>
     private static bool TryGetNetObject<T>(PlayerManager m_PlayerManager, out T networkObject) where T : INetworkObject
     {
         //初期値(null)を代入する
@@ -37,15 +37,17 @@ public static class NetworkObjectsGettings
     /// アイテムの所有者が自身になったら再度処理を開始する
     /// </remarks>
     /// <returns> フラグメントのPhotonViewを返す </returns>
-    private static async UniTask<PhotonView> CheckOwner(PlayerManager m_PlayerManager, INetworkObject itemFragment)
+    public static async UniTask<PhotonView> CheckOwner(PlayerManager m_PlayerManager, INetworkObject netObj)
     {
         //自分が所有しているネットワークオブジェクトかを判別
-        if (!itemFragment.PassPhotonView(out PhotonView view).IsMine)
+        if (!netObj.PassPhotonView(out PhotonView view).IsMine)
         {
             //自分のでないなら所有権をリクエストする
             view.RequestOwnership();
             //自身に所有権が移るまで待機
             await UniTask.WaitUntil(() => view.Owner == m_PlayerManager.GetComponent<PhotonView>().Owner);
+            Debug.Log(view.Owner);
+            Debug.Log(m_PlayerManager.GetComponent<PhotonView>().Owner);
         }
         return view;
     }
@@ -53,8 +55,8 @@ public static class NetworkObjectsGettings
     /// <summary> フラグメント以外のアイテムが出てきたら、switch文に変えたい </summary>
     public static async UniTask<INetworkObject> GetNetworkObject(PlayerManager manager)
     {
-        if (!TryGetNetObject(manager, out INetworkObject flagment)) { return null; }
-        var view = await CheckOwner(manager, flagment);
+        if (!TryGetNetObject(manager, out INetworkObject netObj)) { return null; }
+        var view = await CheckOwner(manager, netObj);
 
         if (view.TryGetComponent(out IFragment flag))
         {
