@@ -15,7 +15,7 @@ public class GroundManager : MonoBehaviour, IGroundGimmick
         if (GimmickTriggerd) return;
 
         GetComponent<PhotonView>().RPC(nameof(StartGimmick), RpcTarget.AllBuffered);
-        if (InitialSpawnPoint) // ゲームスタート地点が
+        if (InitialSpawnPoint) // スポーン地点はギミックを発動させない
         {
             GetComponent<PhotonView>().RPC(nameof(MakeWarpMarker), RpcTarget.AllBuffered);
             return; 
