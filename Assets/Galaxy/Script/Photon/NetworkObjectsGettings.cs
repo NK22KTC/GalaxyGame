@@ -19,7 +19,7 @@ public static class NetworkObjectsGettings
         if (items.Length == 0) { return false; }
 
 
-        var nearestItem = ItemAcquisitionCalculate.GetNearestItem(items, m_PlayerManager.transform.position);
+        var nearestItem = ObjectAcquisitionCalculate.GetNearestObject(items, m_PlayerManager.transform.position);
         //INetworkObjectを継承していたら続ける
         if (!nearestItem.TryGetComponent(out T netObj)) { return false; }
         //既に取得しようとしているネットワークオブジェクトが取得開始されていなければ続ける

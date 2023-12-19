@@ -1,10 +1,10 @@
 using UnityEngine;
 
-/// <summary> アイテム取得時に使う計算 </summary>
-public static class ItemAcquisitionCalculate
+/// <summary> オブジェクト取得時に使う計算 </summary>
+public static class ObjectAcquisitionCalculate
 {
-    /// <summary> プレイヤーとの距離が一番近いオブジェクトを返す </summary>
-    public static Collider GetNearestItem(Collider[] items, Vector3 playerPosition)
+    /// <summary> 距離が一番近いオブジェクトを返す </summary>
+    public static Collider GetNearestObject(Collider[] items, Vector3 playerPosition)
     {
         Collider nearestCollider = null;
         foreach (Collider item in items)
