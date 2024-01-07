@@ -8,7 +8,7 @@ using UnityEngine;
 public class GeneralSettings : ScriptableObject
 {
     private const string path = "Settings/GeneralSettings";
-    private static GeneralSettings instance = null;
+    private static GeneralSettings instance;
 
     public static GeneralSettings Instance
     {

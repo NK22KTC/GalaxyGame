@@ -47,6 +47,8 @@ MonoBehaviour:
   - StartGimmick
   - MakeWarpMaker
   - MakeWarpMarker
+  - SetSpawnPlayer
+  - SetPlayerSpawn
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1

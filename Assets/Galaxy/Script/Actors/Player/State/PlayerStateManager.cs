@@ -11,14 +11,22 @@ public enum PlayerMoveState
     Run,
     /// <summary>跳ぶ</summary>
     Jump,
-    /// <summary>攻撃</summary>
-    Attack,
     /// <summary>星を移動中</summary>
     Warping,
     /// <summary>死</summary>
     Death,
     /// <summary>リスポーン中</summary>
     Respawning
+}
+
+public enum PlayerAttackState
+{
+    /// <summary>ゲーム開始の瞬間だけ使う</summary>
+    Disabled,
+    /// <summary>攻撃していない</summary>
+    Idle,
+    /// <summary>攻撃している</summary>
+    Attack
 }
 
 public enum PlayerPickState
@@ -66,19 +74,22 @@ public enum PlayerProgressState
 public class PlayerStateManager
 {
     private PlayerMoveState moveState = PlayerMoveState.Disabled;
+    private PlayerAttackState attackState = PlayerAttackState.Disabled;
     private PlayerPickState pickState = PlayerPickState.Disabled;
     private PlayerGroundState groundState = PlayerGroundState.Disabled;
     private PlayerGameState gameState = PlayerGameState.Disabled;
     private PlayerProgressState progressState = PlayerProgressState.Disabled;
 
-    public PlayerMoveState MoveState { get => moveState; }
+    public PlayerMoveState MoveState => moveState;
     public void ChangeMoveState(PlayerMoveState newstate) => moveState = newstate;
-    public PlayerPickState PickState { get => pickState; }
+    public PlayerAttackState AttackState => attackState;
+    public void ChangeAttackState(PlayerAttackState newState) => attackState = newState; 
+    public PlayerPickState PickState => pickState;
     public void ChangePickState(PlayerPickState newState) => pickState = newState;
-    public PlayerGroundState GroundState { get => groundState; }
+    public PlayerGroundState GroundState => groundState;
     public void ChangeGroundState(PlayerGroundState newstate) => groundState = newstate;
-    public PlayerGameState GameState { get => gameState; }
+    public PlayerGameState GameState => gameState;
     public void ChangeGameState(PlayerGameState newstate) => gameState = newstate;
-    public PlayerProgressState ProgressState { get => progressState; }
+    public PlayerProgressState ProgressState => progressState;
     public void ChangeProgressState(PlayerProgressState newState) => progressState = newState;
 }

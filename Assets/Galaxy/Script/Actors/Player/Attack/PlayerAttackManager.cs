@@ -16,10 +16,10 @@ public class PlayerAttackManager
         CameraObject = camera;
     }
 
-    public void GenerateBullet()
+    public void Attack()
     {
         // プレイヤーとカメラを分離したらQuaternion はCameraObject.transform.rotation にする
-        var bullet =PhotonNetwork.Instantiate(m_Bullet.name, PlayerObject.transform.position + PlayerObject.transform.right, PlayerObject.transform.rotation * CameraObject.transform.localRotation);
+        var bullet = PhotonNetwork.Instantiate(m_Bullet.name, PlayerObject.transform.position + PlayerObject.transform.right, PlayerObject.transform.rotation * CameraObject.transform.localRotation);
         bullet.GetComponent<BulletManager>().ownerPlayer = PlayerObject.GetComponent<PlayerManager>();
     }
 }

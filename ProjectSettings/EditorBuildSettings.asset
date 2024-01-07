@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Galaxy/Scenes/OnlineSample_PlaceGrounds.unity
+    guid: 2dd28bb49cef1ad4598dfa8575be2534
+  - enabled: 0
     path: Assets/Galaxy/Scenes/OnlineSample.unity
     guid: d6280069ba3092e41b8311fd09e518f8
   m_configObjects: {}

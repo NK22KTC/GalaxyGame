@@ -1473,6 +1473,10 @@ PrefabInstance:
       propertyPath: sceneViewId
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 919132148768222901, guid: 2bd5a6a738f6bb745bb0ae9045fe4065, type: 3}
+      propertyPath: InitialSpawnPoint
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1701700116177203351, guid: 2bd5a6a738f6bb745bb0ae9045fe4065, type: 3}
       propertyPath: m_Name
       value: Planet

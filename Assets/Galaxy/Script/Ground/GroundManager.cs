@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class GroundManager : MonoBehaviour, IGroundGimmick
 {
+    [SerializeField]
     private bool InitialSpawnPoint = false;
     private bool GimmickTriggerd = false;
     private bool GimmickCleard = false;
@@ -21,7 +22,7 @@ public class GroundManager : MonoBehaviour, IGroundGimmick
             return; 
         }
 
-        Instantiates();
+        Instantiate();
     }
 
     [PunRPC]
@@ -38,18 +39,12 @@ public class GroundManager : MonoBehaviour, IGroundGimmick
         GimmickTriggerd = true;
     }
 
-    void Instantiates()
+    void Instantiate()
     {
         float Rand(float min, float max)
         {
             return Random.Range(min, max);
         }
-
-        //PhotonNetwork.Instantiate(GeneralSettings.Instance.m_Prehabs.Enemy.name, transform.position + new Vector3(0, 3, 0), Quaternion.identity);
-        //PhotonNetwork.Instantiate(GeneralSettings.Instance.m_Prehabs.Enemy.name, transform.position + new Vector3(0, 3, 1), Quaternion.identity);
-        //PhotonNetwork.Instantiate(GeneralSettings.Instance.m_Prehabs.Enemy.name, transform.position + new Vector3(0, 3, -1), Quaternion.identity);
-        //PhotonNetwork.Instantiate(GeneralSettings.Instance.m_Prehabs.Enemy.name, transform.position + new Vector3(0, 3, 0), Quaternion.identity);
-        //PhotonNetwork.Instantiate(GeneralSettings.Instance.m_Prehabs.Enemy.name, transform.position + new Vector3(0, 3, 1), Quaternion.identity);
 
         for(int i = 0;  i < (int)Rand(1, 5); i++)
         {

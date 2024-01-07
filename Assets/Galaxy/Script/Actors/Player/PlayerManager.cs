@@ -51,7 +51,7 @@ public class PlayerManager : MonoBehaviour, IPlayer
 
         if (m_StatePresenter.isAttacking)
         {
-            m_AttackManager.GenerateBullet();
+            m_AttackManager.Attack();
 //#if UNITY_EDITOR
 //            UnityEditor.EditorApplication.isPaused = true;
 //#endif
@@ -71,6 +71,7 @@ public class PlayerManager : MonoBehaviour, IPlayer
         if (networkItem is IFragment)
         {
             PlayerStatusPresenter.GetFlagment(m_StatusManager, 1).UpdateFlag(((IFragment)networkItem).FragmentType);
+            //PlayerStateUpdater.
             PhotonNetwork.Destroy(networkItem.PassPhotonView());
         }
         if (networkItem is IGameButton)

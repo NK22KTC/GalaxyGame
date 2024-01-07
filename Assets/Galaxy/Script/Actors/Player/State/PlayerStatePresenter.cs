@@ -5,6 +5,7 @@ public class PlayerStatePresenter
 
     //Disabledのステートがあるかどうか
     public bool isDisabled => StateManager.MoveState == PlayerMoveState.Disabled ||
+                              StateManager.AttackState == PlayerAttackState.Disabled ||
                               StateManager.PickState == PlayerPickState.Disabled ||
                               StateManager.GroundState == PlayerGroundState.Disabled ||
                               StateManager.GameState == PlayerGameState.Disabled ||
@@ -24,9 +25,6 @@ public class PlayerStatePresenter
     //ジャンプ中かどうか
     public bool isJumping => StateManager.MoveState == PlayerMoveState.Jump;
 
-    //攻撃中かどうか
-    public bool isAttacking => StateManager.MoveState == PlayerMoveState.Attack;
-
     //ワープ中かどうか
     public bool isWarping => StateManager.MoveState == PlayerMoveState.Warping;
 
@@ -44,9 +42,6 @@ public class PlayerStatePresenter
     //視点移動ができるか(キャラを操作できる)
     public bool canLook => canOperate;
 
-    //攻撃できるか(キャラを操作できる && ワープ中でない && アイテムを拾っていない)
-    public bool canAttack => canOperate && !isWarping && isPickUping;
-
     //ジャンプできるか (キャラを操作できる && 接地している)
     public bool canJump => canOperate && !isWarping && StateManager.GroundState == PlayerGroundState.Grounded;
 
@@ -54,6 +49,14 @@ public class PlayerStatePresenter
     public void ChangeMoveState(PlayerMoveState newstate) => StateManager.ChangeMoveState(newstate);
 
     //----------------------------------------------------------------------------------------------------------------
+
+    //------------------------------------PlayerAttackState-----------------------------------------------------------
+
+    //攻撃中かどうか
+    public bool isAttacking  => StateManager.AttackState == PlayerAttackState.Attack;
+    //攻撃できるか(キャラを操作できる && ワープ中でない && アイテムを拾っていない)
+    public bool canAttack => canOperate && !isWarping && isPickUping;
+    public void ChangeAttackState(PlayerAttackState newState) => StateManager.ChangeAttackState(newState);
 
     //------------------------------------PlayerPickState-------------------------------------------------------------
 
@@ -106,6 +109,7 @@ public class PlayerStatePresenter
     public void OnStartPlayState()
     {
         ChangeMoveState(PlayerMoveState.Idle);
+        ChangeAttackState(PlayerAttackState.Idle);
         ChangePickState(PlayerPickState.UnPicking);
         ChangeGroundState(PlayerGroundState.UnGrounded);
         ChangeGameState(PlayerGameState.Operating);

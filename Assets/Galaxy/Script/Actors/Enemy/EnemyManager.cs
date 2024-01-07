@@ -7,11 +7,9 @@ public class EnemyManager : MonoBehaviourPunCallbacks, IEnemy, INetworkObject
 {
     EnemyStatusManager EnemyStatusManager;
 
-    private float walkSpeed;
+    public float WalkSpeed => GeneralSettings.Instance.m_EnemySettings.WalkSpeed;
 
     public EnemyStatusManager m_EnemyStatusManager => EnemyStatusManager;
-
-    public float WalkSpeed { get => walkSpeed; }
 
     public IActorStatus m_ActorStatus => m_EnemyStatusManager;
 
