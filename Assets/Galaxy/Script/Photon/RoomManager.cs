@@ -12,13 +12,12 @@ public class RoomManager : MonoBehaviourPunCallbacks
 
     public Transform spawnPoint;
 
-    const int maxPlayer = 2;  //部屋の最大人数
+    private const int maxPlayer = 2;  //部屋の最大人数
     
 
     void Start()
     {
         Debug.Log("Connecting...");
-
         PhotonNetwork.ConnectUsingSettings();
     }
 
@@ -53,6 +52,12 @@ public class RoomManager : MonoBehaviourPunCallbacks
         await WaitAnotherPlayer();
 
         text.text = "スタート!";
+
+        if (PhotonNetwork.IsMasterClient)
+        {
+            SpawnPointExtension.SetPlayerSpawn();  // 地形の自動生成が出来上がったらそこに書き直す
+        }
+
         await WaitOneSec();
 
         SetUpGame();
@@ -60,10 +65,14 @@ public class RoomManager : MonoBehaviourPunCallbacks
 
     void SetUpGame()
     {
-        GameObject.Destroy(WaitCamvas, 0.2f);
-        GameObject.Destroy(waitingCamera, 0.2f);
+        Destroy(WaitCamvas, 0.2f);
+        Destroy(waitingCamera, 0.2f);
 
-        GameObject _player = PhotonNetwork.Instantiate(GeneralSettings.Instance.m_Prehabs.Player.name, spawnPoint.position, Quaternion.identity);
+        var playerType = PhotonNetwork.IsMasterClient ? Player.Owner : Player.Client;
+
+
+        GameObject _player = PhotonNetwork.Instantiate(GeneralSettings.Instance.m_Prehabs.Player.name, SpawnPointExtension.TakeSpawnPoint(playerType), Quaternion.identity);
+
         PlayerSetup playerSetup = _player.GetComponent<PlayerSetup>();
         playerSetup.IsLocalPlayer(playerSetup);
     }
