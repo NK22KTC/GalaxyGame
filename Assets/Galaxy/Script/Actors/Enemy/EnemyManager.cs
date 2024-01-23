@@ -5,17 +5,25 @@ using UnityEngine;
 
 public class EnemyManager : MonoBehaviourPunCallbacks, IEnemy, INetworkObject
 {
-    EnemyStatusManager EnemyStatusManager;
-
-    public float WalkSpeed => GeneralSettings.Instance.m_EnemySettings.WalkSpeed;
+    private EnemyStatusManager EnemyStatusManager;
+    private EnemyController EnemyController;
+    private IGroundGimmick GroundGimmick;
+    private float walkSpeed;
 
     public EnemyStatusManager m_EnemyStatusManager => EnemyStatusManager;
-
+    public EnemyController m_EnemyController => EnemyController;
+    public IGroundGimmick m_GroundGimmick => GroundGimmick;
+    public float WalkSpeed => walkSpeed;
     public IActorStatus m_ActorStatus => m_EnemyStatusManager;
 
     public IHitPointHandler m_HitPointHandler => m_EnemyStatusManager;
 
     public bool DoingTransfer => throw new System.NotImplementedException();
+
+    public void GetGroundInfo(GroundManager GroundGimmick)
+    {
+        this.GroundGimmick = GroundGimmick;
+    }
 
     public PhotonView PassPhotonView()
     {
@@ -29,11 +37,13 @@ public class EnemyManager : MonoBehaviourPunCallbacks, IEnemy, INetworkObject
 
     public void UpdateTransferSituation()
     {
-        throw new System.NotImplementedException();
+        
     }
 
     void Start()
     {
         EnemyStatusManager = new EnemyStatusManager(this);
+        EnemyController = new EnemyController(this);
+        walkSpeed = GeneralSettings.Instance.m_EnemySettings.WalkSpeed;
     }
 }

@@ -8,16 +8,22 @@ using UnityEngine;
 
 public class EnemyStatusManager : IActorStatus, IHitPointHandler
 {
+    private EnemyManager EnemyManager;
+
     private int hp;
+    private int power;
 
     private readonly INetworkObject netObj;
     public int m_Hp => hp;
-    public int m_Power => GeneralSettings.Instance.m_EnemySettings.Power;
+    public int m_Power => power;
 
-    public EnemyStatusManager(INetworkObject netObj)
+    public EnemyStatusManager(EnemyManager EnemyManager)
     {
         hp = GeneralSettings.Instance.m_EnemySettings.Hp;
-        this.netObj = netObj;
+        power = GeneralSettings.Instance.m_EnemySettings.Power;
+
+        this.EnemyManager = EnemyManager;
+        this.netObj = EnemyManager;
     }
 
     public void Heal(int healNum)
@@ -32,8 +38,15 @@ public class EnemyStatusManager : IActorStatus, IHitPointHandler
         if(hp <= 0)
         {
             await NetworkObjectsGettings.CheckOwner(manager, netObj);
+            EnemyManager.m_GroundGimmick.UpdateStatus(EnemyManager);
+            DropItems();
             DestroyObj();
         }
+    }
+
+    private void DropItems()
+    {
+        PhotonNetwork.Instantiate(GeneralSettings.Instance.m_Prehabs.FlagmentLight.name, EnemyManager.transform.position, EnemyManager.transform.rotation);
     }
 
     void DestroyObj()
