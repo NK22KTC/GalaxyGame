@@ -28,9 +28,17 @@ public class UIManager : MonoBehaviour
         if (PlayerInputPresenter.SwitchMenu)
         {
             menuDisplay.SetActive(!menuDisplay.activeSelf);
-            PlayerGameState newState = menuDisplay.activeSelf ? PlayerGameState.OpeningMenu : PlayerGameState.Operating;
+            SetCursor();
 
+            PlayerGameState newState = menuDisplay.activeSelf ? PlayerGameState.OpeningMenu : PlayerGameState.Operating;
             m_PlayerManager.m_StatePresenter.ChangeGameState(newState);
         }
+    }
+
+    private bool IsLocked => Cursor.lockState == CursorLockMode.Locked;
+    private void SetCursor()
+    {
+        Cursor.lockState = IsLocked ? CursorLockMode.None : CursorLockMode.Locked;
+        Cursor.visible = menuDisplay.activeSelf;
     }
 }

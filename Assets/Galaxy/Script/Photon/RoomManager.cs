@@ -11,9 +11,14 @@ public class RoomManager : MonoBehaviourPunCallbacks
     public Text text;
 
     public Transform spawnPoint;
+    [SerializeField]
+    private int maxPlayer = 1;  //部屋の最大人数
 
-    private const int maxPlayer = 2;  //部屋の最大人数
-    
+    private void Awake()
+    {
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+    }
 
     void Start()
     {
@@ -34,7 +39,6 @@ public class RoomManager : MonoBehaviourPunCallbacks
         PhotonNetwork.JoinRandomRoom();
 
         Debug.Log("We're in the lobby");
-        
     }
 
     public override void OnJoinRandomFailed(short returnCode, string message)  //部屋に入れなかったら部屋を作る
@@ -52,14 +56,12 @@ public class RoomManager : MonoBehaviourPunCallbacks
         await WaitAnotherPlayer();
 
         text.text = "スタート!";
-
         if (PhotonNetwork.IsMasterClient)
         {
             SpawnPointExtension.SetPlayerSpawn();  // 地形の自動生成が出来上がったらそこに書き直す
         }
 
         await WaitOneSec();
-
         SetUpGame();
     }
 
