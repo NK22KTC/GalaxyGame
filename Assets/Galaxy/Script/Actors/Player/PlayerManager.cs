@@ -7,8 +7,8 @@ public class PlayerManager : MonoBehaviour, IPlayer
 
     internal GameObject m_Camera;
 
-    private PlayerStatusManager StatusManager = new PlayerStatusManager();
-    private PlayerStatePresenter StatePresenter = new PlayerStatePresenter();
+    private PlayerStatusManager StatusManager;
+    private PlayerStatePresenter StatePresenter;
     private PlayerAttackManager AttackManager;
     [SerializeField]
     UIManager uiManager;
@@ -23,6 +23,8 @@ public class PlayerManager : MonoBehaviour, IPlayer
 
     private void Init()
     {
+        StatusManager = new PlayerStatusManager();
+        StatePresenter = new PlayerStatePresenter();
         AttackManager = AttackManager = new PlayerAttackManager(gameObject, m_Camera);
 
         view = GetComponent<PhotonView>();

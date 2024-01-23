@@ -8,18 +8,21 @@ public class PlayerAttackManager
 {
     private readonly GameObject PlayerObject;
     private readonly GameObject CameraObject;
-    private GameObject m_Bullet => GeneralSettings.Instance.m_Prehabs.Bullet;
+
+    private GameObject bullet;
 
     public PlayerAttackManager(GameObject player, GameObject camera)
     {
         PlayerObject = player;
         CameraObject = camera;
+
+        bullet = GeneralSettings.Instance.m_Prehabs.Bullet;
     }
 
     public void Attack()
     {
         // プレイヤーとカメラを分離したらQuaternion はCameraObject.transform.rotation にする
-        var bullet = PhotonNetwork.Instantiate(m_Bullet.name, PlayerObject.transform.position + PlayerObject.transform.right, PlayerObject.transform.rotation * CameraObject.transform.localRotation);
-        bullet.GetComponent<BulletManager>().ownerPlayer = PlayerObject.GetComponent<PlayerManager>();
+        var instBullet = PhotonNetwork.Instantiate(bullet.name, PlayerObject.transform.position + PlayerObject.transform.right, PlayerObject.transform.rotation * CameraObject.transform.localRotation);
+        instBullet.GetComponent<BulletManager>().ownerPlayer = PlayerObject.GetComponent<PlayerManager>();
     }
 }

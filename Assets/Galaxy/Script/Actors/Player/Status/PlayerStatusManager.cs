@@ -4,6 +4,7 @@ using UnityEngine;
 public class PlayerStatusManager : IActorStatus, IHitPointHandler
 {
     private int hp;
+    private int power;
 
     private int flagGuide = 0;
     private int flagMark = 0;
@@ -11,11 +12,12 @@ public class PlayerStatusManager : IActorStatus, IHitPointHandler
     public int calcFlagment;
 
     public int m_Hp => hp;
-    public int m_Power => GeneralSettings.Instance.m_PlayerSettings.Power;
+    public int m_Power => power;
 
     public PlayerStatusManager()
     {
         hp = GeneralSettings.Instance.m_PlayerSettings.Hp;
+        power = GeneralSettings.Instance.m_PlayerSettings.Power;
     }
 
     public void Heal(int healNum)
