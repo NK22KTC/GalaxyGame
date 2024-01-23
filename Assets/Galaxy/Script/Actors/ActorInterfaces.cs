@@ -38,5 +38,5 @@ public interface IPlayer : IActors
 public interface IEnemy : IActors
 #pragma warning restore CS0612 // Œ^‚Ü‚½‚Íƒƒ“ƒo[‚ª‹ŒŒ^®‚Å‚·
 {
-
+    void GetGroundInfo(GroundManager GroundManager);
 }
