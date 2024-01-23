@@ -12,6 +12,8 @@ public interface IGroundGimmick
 
     /// <summary> ギミック発動時に開始 </summary>
     void StartButtle();
+    /// <summary> 状況を更新する </summary>
+    void UpdateStatus(IEnemy enemy);
     /// <summary> ギミッククリア時に発動 </summary>
     void MakeWarpMarker();
 }
