@@ -25,7 +25,6 @@ public class GroundManager : MonoBehaviour, IGroundGimmick
         {
             GetComponent<PhotonView>().RPC(nameof(MakeWarpMarker), RpcTarget.AllBuffered);
             GimmickTriggerd = true;
-            return; 
         }
         else
         {
@@ -64,6 +63,21 @@ public class GroundManager : MonoBehaviour, IGroundGimmick
         if (GimmickTriggerd) { return; }  //StartButtle ‚Ì’†‚É‘‚¢‚Ä‚é‚¯‚Çˆê‰ž
         Debug.Log("í“¬ŠJŽn");
         GimmickTriggerd = true;
+    }
+
+    [PunRPC]
+    private void SetInitialSpawnPoint() => InitialSpawnPoint = true;
+
+    public GroundManager SetInitialPoint()
+    {
+        GetComponent<PhotonView>().RPC(nameof(SetInitialSpawnPoint), RpcTarget.AllBuffered);
+        return this;
+    }
+    public SpawnPoint CreateSpawnPoint()
+    {
+        return PhotonNetwork.Instantiate(GeneralSettings.Instance.m_Prehabs.Spawnpoint.name,
+                                     new Vector3(transform.position.x, transform.position.y + 1.1f, transform.position.z),
+                                     Quaternion.identity).GetComponent<SpawnPoint>();
     }
 
     void Instantiate()

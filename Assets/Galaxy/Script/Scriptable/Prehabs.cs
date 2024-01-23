@@ -4,6 +4,8 @@ using UnityEngine;
 [Serializable]
 public class Prehabs
 {
+    public GameObject Generator;
+    public GameObject Spawnpoint;
     public GameObject Player;
     public GameObject Camera;
     public GameObject Enemy;

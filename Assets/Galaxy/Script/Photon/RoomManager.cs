@@ -50,16 +50,19 @@ public class RoomManager : MonoBehaviourPunCallbacks
 
     public override async void OnJoinedRoom()
     {
-        //base.OnJoinedRoom();
         Debug.Log("We're connected and in a room!");
+
+        if (PhotonNetwork.IsMasterClient)
+        {
+            var generator = PhotonNetwork.Instantiate(GeneralSettings.Instance.m_Prehabs.Generator.name, new Vector3(0, 0, 0), Quaternion.identity);
+            await generator.GetComponent<GroundGenerator>().GenerateGround(50, generator.GetComponent<PhotonView>());
+            PhotonNetwork.Destroy(generator);
+            SpawnPointExtension.SetPlayerSpawn();  // 地形の自動生成が出来上がったらそこに書き直す
+        }
 
         await WaitAnotherPlayer();
 
         text.text = "スタート!";
-        if (PhotonNetwork.IsMasterClient)
-        {
-            SpawnPointExtension.SetPlayerSpawn();  // 地形の自動生成が出来上がったらそこに書き直す
-        }
 
         await WaitOneSec();
         SetUpGame();
@@ -71,8 +74,6 @@ public class RoomManager : MonoBehaviourPunCallbacks
         Destroy(waitingCamera, 0.2f);
 
         var playerType = PhotonNetwork.IsMasterClient ? Player.Owner : Player.Client;
-
-
         GameObject _player = PhotonNetwork.Instantiate(GeneralSettings.Instance.m_Prehabs.Player.name, SpawnPointExtension.TakeSpawnPoint(playerType), Quaternion.identity);
 
         PlayerSetup playerSetup = _player.GetComponent<PlayerSetup>();
@@ -97,15 +98,15 @@ public class RoomNameCreator
     public static string CreateRoomName()
     {
         string name = "";
-        for(int i = 0; i < nameLength; i++)
+        for (int i = 0; i < nameLength; i++)
         {
-            if(i == 0)  //1文字目
+            if (i == 0)  //1文字目
             {
                 name += (char)Random.Range(largeA, largeZ + 1);
             }
             else
             {
-                name  += (char)Random.Range(smallA, smallZ + 1);
+                name += (char)Random.Range(smallA, smallZ + 1);
             }
         }
         Debug.Log(name);
