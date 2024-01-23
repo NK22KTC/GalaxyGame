@@ -9,6 +9,7 @@ public class Prehabs
     public GameObject Enemy;
     public GameObject Bullet;
     public GameObject Planet;
+    public GameObject WarpPoint;
     public GameObject FlagmentGuide;
     public GameObject FlagmentLight;
     public GameObject FlagmentMark;
