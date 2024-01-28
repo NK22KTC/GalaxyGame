@@ -14,6 +14,8 @@ public class RoomManager : MonoBehaviourPunCallbacks
     [SerializeField]
     private int maxPlayer = 1;  //部屋の最大人数
 
+    private bool canStart = false;
+
     private void Awake()
     {
         Cursor.lockState = CursorLockMode.Locked;
@@ -58,10 +60,13 @@ public class RoomManager : MonoBehaviourPunCallbacks
             await generator.GetComponent<GroundGenerator>().GenerateGround(50, generator.GetComponent<PhotonView>());
             PhotonNetwork.Destroy(generator);
             SpawnPointExtension.SetPlayerSpawn();  // 地形の自動生成が出来上がったらそこに書き直す
+
+            GetComponent<PhotonView>().RPC(nameof(StartGame), RpcTarget.AllBuffered);
         }
 
         await WaitAnotherPlayer();
 
+        await UniTask.WaitUntil(() => canStart);
         text.text = "スタート!";
 
         await WaitOneSec();
@@ -83,6 +88,9 @@ public class RoomManager : MonoBehaviourPunCallbacks
     //部屋の人数が最大になったら待機終了
     async UniTask WaitAnotherPlayer() => await UniTask.WaitUntil(() => PhotonNetwork.PlayerList.Length == maxPlayer);
     async UniTask WaitOneSec() => await UniTask.Delay(1000);
+
+    [PunRPC]
+    private void StartGame() => canStart = true;
 }
 
 
