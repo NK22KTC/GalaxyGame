@@ -20,7 +20,7 @@ MonoBehaviour:
     Enemy: {fileID: 5620736194322478501, guid: 0d96219326fe8ae49b8c046ebe90ad97, type: 3}
     Bullet: {fileID: 5739868658856799082, guid: 4917b213ef5e6134baafd14426193ece, type: 3}
     Planet: {fileID: 1701700116177203351, guid: 2bd5a6a738f6bb745bb0ae9045fe4065, type: 3}
-    WarpPoint: {fileID: 0}
+    WarpPoint: {fileID: 2726172818943640594, guid: 0edc01b4f4194d64692f1e0a7778d00e, type: 3}
     FlagmentGuide: {fileID: 3129155793334995083, guid: ba047ca2d9046d64692e6ad5b1390d51, type: 3}
     FlagmentLight: {fileID: 5295711741548707964, guid: 8dc6b0950f0185b47bd6eaa9c03de210, type: 3}
     FlagmentMark: {fileID: 8638596986952588099, guid: 2cc9f5ef1b5aec344b93f05ac909f904, type: 3}

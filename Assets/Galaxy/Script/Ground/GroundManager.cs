@@ -11,6 +11,8 @@ public class GroundManager : MonoBehaviour, IGroundGimmick
 
     private List<IEnemy> enemies = new List<IEnemy>();
 
+    public PhotonView view => GetComponent<PhotonView>();
+    public VectorXZ Vec => new VectorXZ((int)transform.position.x, (int)transform.position.z);
     public bool m_GimmickTriggerd => GimmickTriggerd;
     public bool m_GimmickCleard => GimmickCleard;
 
@@ -19,16 +21,16 @@ public class GroundManager : MonoBehaviour, IGroundGimmick
         if (GimmickTriggerd) return;
 
         var randPos = new Vector3(Rand(-1f, 1f), 0, Rand(-1f, 1f)).normalized * Rand(0f, 9f);
-        PhotonNetwork.Instantiate(GeneralSettings.Instance.m_Prehabs.FlagmentGuide.name, transform.position + randPos, Quaternion.identity);  //ƒ`ƒ…[ƒgƒŠƒAƒ‹
+        PhotonNetwork.Instantiate(GeneralSettings.Instance.m_Prehabs.FlagmentGuide.name, transform.position + randPos, Quaternion.identity);  //ï¿½`ï¿½ï¿½ï¿½[ï¿½gï¿½ï¿½ï¿½Aï¿½ï¿½
 
-        if (InitialSpawnPoint) // ƒXƒ|[ƒ“’n“_‚ÍƒMƒ~ƒbƒN‚ğ”­“®‚³‚¹‚È‚¢
+        if (InitialSpawnPoint) // ï¿½Xï¿½|ï¿½[ï¿½ï¿½ï¿½nï¿½_ï¿½ÍƒMï¿½~ï¿½bï¿½Nï¿½ğ”­“ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È‚ï¿½
         {
-            GetComponent<PhotonView>().RPC(nameof(MakeWarpMarker), RpcTarget.AllBuffered);
-            GimmickTriggerd = true;
+            view.RPC(nameof(MakeWarpMarker), RpcTarget.AllBuffered);
+            view.RPC(nameof(TriggeringGimmick), RpcTarget.AllBuffered);
         }
         else
         {
-            GetComponent<PhotonView>().RPC(nameof(StartGimmick), RpcTarget.AllBuffered);
+            view.RPC(nameof(StartGimmick), RpcTarget.AllBuffered);
             Instantiate();
         }
     }
@@ -41,17 +43,17 @@ public class GroundManager : MonoBehaviour, IGroundGimmick
         {
             Debug.Log("StageClear!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
             GimmickCleard = true;
-            GetComponent<PhotonView>().RPC(nameof(MakeWarpMarker), RpcTarget.AllBuffered);
+            view.RPC(nameof(MakeWarpMarker), RpcTarget.AllBuffered);
         }
     }
 
     [PunRPC]
     public void MakeWarpMarker()
     {
-        Debug.Log("ƒ[ƒv’n“_¶¬");
-        // ƒ[ƒv’n“_‚Ì”‚¾‚¯FlagmentMark‚ğ¶¬‚·‚é
+        Debug.Log("ï¿½ï¿½ï¿½[ï¿½vï¿½nï¿½_ï¿½ï¿½ï¿½ï¿½");
+        // ï¿½ï¿½ï¿½[ï¿½vï¿½nï¿½_ï¿½Ìï¿½ï¿½ï¿½ï¿½ï¿½FlagmentMarkï¿½ğ¶ï¿½ï¿½ï¿½ï¿½ï¿½
 
-        if (InitialSpawnPoint) { return; }  //‰Šú’n“_‚ÍÅ‰‚©‚çƒ[ƒv‰Â”\‚É‚·‚éA‚à‚µ‚­‚ÍFlagmentMark1ŒÂÁ”ï‚¾‚¯‚Åƒ[ƒv’n“_‰Â”\‚É‚·‚é
+        if (InitialSpawnPoint) { return; }  //ï¿½ï¿½ï¿½ï¿½ï¿½nï¿½_ï¿½ÍÅï¿½ï¿½ï¿½ï¿½çƒï¿½[ï¿½vï¿½Â”\ï¿½É‚ï¿½ï¿½ï¿½Aï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½FlagmentMark1ï¿½Âï¿½ï¿½ï‚¾ï¿½ï¿½ï¿½Åƒï¿½ï¿½[ï¿½vï¿½nï¿½_ï¿½Â”\ï¿½É‚ï¿½ï¿½ï¿½
 
         var randPos = new Vector3(Rand(-1f, 1f), 0, Rand(-1f, 1f)).normalized * Rand(0f, 9f);
         PhotonNetwork.Instantiate(GeneralSettings.Instance.m_Prehabs.FlagmentMark.name, transform.position + randPos, Quaternion.identity);
@@ -60,10 +62,12 @@ public class GroundManager : MonoBehaviour, IGroundGimmick
     [PunRPC]
     void StartGimmick()
     {
-        if (GimmickTriggerd) { return; }  //StartButtle ‚Ì’†‚É‘‚¢‚Ä‚é‚¯‚Çˆê‰
-        Debug.Log("í“¬ŠJn");
-        GimmickTriggerd = true;
+        if (GimmickTriggerd) { return; }  //StartButtle ï¿½Ì’ï¿½ï¿½Éï¿½ï¿½ï¿½ï¿½Ä‚é‚¯ï¿½Çˆê‰
+        Debug.Log("ï¿½í“¬ï¿½Jï¿½n");
+        TriggeringGimmick();
     }
+
+    [PunRPC] void TriggeringGimmick() => GimmickTriggerd = true;
 
     [PunRPC]
     private void SetInitialSpawnPoint() => InitialSpawnPoint = true;

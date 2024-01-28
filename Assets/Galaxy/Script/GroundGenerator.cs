@@ -71,6 +71,8 @@ public class GroundGenerator : MonoBehaviour
 
     private void PuttingGround(int posX, int posZ)
     {
+        //var y = Mathf.Pow(Mathf.PerlinNoise(Time.time, 100) * 20f, 2);
+
         var ground = PhotonNetwork.Instantiate(GeneralSettings.Instance.m_Prehabs.Planet.name,
                                   new Vector3(posX, 0, posZ),
                                   new Quaternion(1.0f, 0, 0, 0)
@@ -84,23 +86,23 @@ public class GroundGenerator : MonoBehaviour
         if (initPoint1 == null)
         {
             initPoint1 = generateGrounds[Random.Range(0, generateGrounds.Count)];
-            //generateGrounds.Remove(initPoint1);
 
             initPoint1.GetComponent<GroundManager>().SetInitialPoint().CreateSpawnPoint().SetSpawnPlayerType((int)Player.Owner);
         }
-        while (true)
+        if(initPoint2 == null)
         {
-            if (initPoint2 == null)
+            while (true)
             {
                 initPoint2 = generateGrounds[Random.Range(0, generateGrounds.Count)];
-                if(initPoint1 == initPoint2) { continue; }
-                //generateGrounds.Remove(initPoint2);
-
+                Debug.Log(initPoint2.name);
+                if (initPoint1 == initPoint2) { continue; }
                 initPoint2.GetComponent<GroundManager>().SetInitialPoint().CreateSpawnPoint().SetSpawnPlayerType((int)Player.Client);
 
                 break;
             }
         }
+
+        
 
         await Task.Delay(10);
 
