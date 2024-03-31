@@ -24,14 +24,19 @@ public class GroundGenerator : MonoBehaviour
     private static List<VectorXZ> generatePosz = new List<VectorXZ>();
     private static List<int> generatePoses = new List<int>();
 
+    //ワープ処理が完成したら直す
     private const int minPos = 10; 
-    private const int maxPos = 990;
-    private const int interval = 70;
+    private const int maxPos = 310;
+    private const int interval = 20;
+
+    //置ける地面の最大値と最小値、最小値はプレイヤーの数+1個
+    private const int maxPut = 225;
+    private const int minPut = 3;
 
     public async Task GenerateGround(int maxGenerateNum, PhotonView view)
     {
-        if(maxGenerateNum > 255) { maxGenerateNum = 255; }
-        else if(maxGenerateNum < 3) { maxGenerateNum = 3; }
+        if(maxGenerateNum > maxPut) { maxGenerateNum = maxPut; }
+        else if(maxGenerateNum < minPut) { maxGenerateNum = minPut; }
 
         for(int i = minPos; i <= maxPos; i += interval)
         {
@@ -39,16 +44,14 @@ public class GroundGenerator : MonoBehaviour
         }
         int generateNum = 0;
 
-        while (generateNum < maxGenerateNum)
+        while (generateNum < maxGenerateNum)  //地面の生成する位置を決める
         {
             var adding = true;
-
             var vec = new VectorXZ(generatePoses[Random.Range(0, generatePoses.Count - 1)], generatePoses[Random.Range(0, generatePoses.Count - 1)]);
 
             foreach (var addedVec in generatePosz)
             {
                 if (addedVec.x != vec.x) { continue; }
-
                 if (addedVec.z != vec.z) { continue; }
                 adding = false;
                 break;
@@ -61,7 +64,7 @@ public class GroundGenerator : MonoBehaviour
 
         for(int i = 0; i < generatePosz.Count; i++)
         {
-            await Task.Delay(10);
+            await Task.Delay(10);  //処理が重くならないように
             PuttingGround(generatePosz[i].x, generatePosz[i].z);
         }
         generatePosz = null;
@@ -71,8 +74,6 @@ public class GroundGenerator : MonoBehaviour
 
     private void PuttingGround(int posX, int posZ)
     {
-        //var y = Mathf.Pow(Mathf.PerlinNoise(Time.time, 100) * 20f, 2);
-
         var ground = PhotonNetwork.Instantiate(GeneralSettings.Instance.m_Prehabs.Planet.name,
                                   new Vector3(posX, 0, posZ),
                                   new Quaternion(1.0f, 0, 0, 0)
@@ -81,7 +82,7 @@ public class GroundGenerator : MonoBehaviour
         generateGrounds.Add(ground);
     }
 
-    private async void SetWarpCooperation(GameObject initPoint1, GameObject initPoint2)
+    private async void SetWarpCooperation(GameObject initPoint1, GameObject initPoint2)  //ワープ位置生成
     {
         if (initPoint1 == null)
         {

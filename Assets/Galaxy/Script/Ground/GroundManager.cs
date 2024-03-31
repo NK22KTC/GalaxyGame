@@ -23,7 +23,7 @@ public class GroundManager : MonoBehaviour, IGroundGimmick
         var randPos = new Vector3(Rand(-1f, 1f), 0, Rand(-1f, 1f)).normalized * Rand(0f, 9f);
         PhotonNetwork.Instantiate(GeneralSettings.Instance.m_Prehabs.FlagmentGuide.name, transform.position + randPos, Quaternion.identity);  //�`���[�g���A��
 
-        if (InitialSpawnPoint) // �X�|�[���n�_�̓M�~�b�N�𔭓������Ȃ�
+        if (InitialSpawnPoint)  //初期位置の時は戦闘をスルー
         {
             view.RPC(nameof(MakeWarpMarker), RpcTarget.AllBuffered);
             view.RPC(nameof(TriggeringGimmick), RpcTarget.AllBuffered);
@@ -48,12 +48,11 @@ public class GroundManager : MonoBehaviour, IGroundGimmick
     }
 
     [PunRPC]
-    public void MakeWarpMarker()
+    public void MakeWarpMarker()  //ワープ位置生成処理
     {
-        Debug.Log("���[�v�n�_����");
-        // ���[�v�n�_�̐�����FlagmentMark�𐶐�����
+        Debug.Log("ワープマーカー生成");
 
-        if (InitialSpawnPoint) { return; }  //�����n�_�͍ŏ����烏�[�v�\�ɂ���A��������FlagmentMark1������Ń��[�v�n�_�\�ɂ���
+        if (InitialSpawnPoint) { return; }
 
         var randPos = new Vector3(Rand(-1f, 1f), 0, Rand(-1f, 1f)).normalized * Rand(0f, 9f);
         PhotonNetwork.Instantiate(GeneralSettings.Instance.m_Prehabs.FlagmentMark.name, transform.position + randPos, Quaternion.identity);
@@ -62,8 +61,8 @@ public class GroundManager : MonoBehaviour, IGroundGimmick
     [PunRPC]
     void StartGimmick()
     {
-        if (GimmickTriggerd) { return; }  //StartButtle �̒��ɏ����Ă邯�ǈꉞ
-        Debug.Log("�퓬�J�n");
+        if (GimmickTriggerd) { return; }
+        Debug.Log("戦闘開始");
         TriggeringGimmick();
     }
 
@@ -84,7 +83,7 @@ public class GroundManager : MonoBehaviour, IGroundGimmick
                                      Quaternion.identity).GetComponent<SpawnPoint>();
     }
 
-    void Instantiate()
+    void Instantiate()  //敵生成の処理
     {
         for(int i = 0;  i < (int)Rand(1, 5); i++)
         {

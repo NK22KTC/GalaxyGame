@@ -54,7 +54,7 @@ public class RoomManager : MonoBehaviourPunCallbacks
     {
         Debug.Log("We're connected and in a room!");
 
-        if (PhotonNetwork.IsMasterClient)
+        if (PhotonNetwork.IsMasterClient)  //マスターだったら地形の生成などの準備を行う
         {
             var generator = PhotonNetwork.Instantiate(GeneralSettings.Instance.m_Prehabs.Generator.name, new Vector3(0, 0, 0), Quaternion.identity);
             await generator.GetComponent<GroundGenerator>().GenerateGround(50, generator.GetComponent<PhotonView>());
