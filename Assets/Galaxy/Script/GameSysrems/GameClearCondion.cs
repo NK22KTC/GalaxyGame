@@ -24,7 +24,6 @@ public class GameClearCondion : IGameClearCondion
     [PunRPC]
     public virtual void UpdateClearCondion(int viewId, bool isClear)
     {
-        Debug.Log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
         if (!isClear)
         {
             CleardPlayers.Remove(viewId);

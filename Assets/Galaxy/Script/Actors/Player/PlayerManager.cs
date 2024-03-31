@@ -35,12 +35,6 @@ public class PlayerManager : MonoBehaviour, IPlayer
     void Start()
     {
         Init();
-        //PhotonNetwork.Instantiate(GeneralSettings.Instance.m_Prehabs.FlagmentGuide.name, new Vector3(0, 3, 0), Quaternion.identity);
-        //PhotonNetwork.Instantiate(GeneralSettings.Instance.m_Prehabs.FlagmentLight.name, new Vector3(0, 3, 1), Quaternion.identity);
-        //PhotonNetwork.Instantiate(GeneralSettings.Instance.m_Prehabs.FlagmentMark.name, new Vector3(0, 3, -1), Quaternion.identity);
-        //PhotonNetwork.Instantiate(GeneralSettings.Instance.m_Prehabs.FlagmentGuide.name, new Vector3(0, 3, 0), Quaternion.identity);
-        //PhotonNetwork.Instantiate(GeneralSettings.Instance.m_Prehabs.FlagmentLight.name, new Vector3(0, 3, 1), Quaternion.identity);
-        //PhotonNetwork.Instantiate(GeneralSettings.Instance.m_Prehabs.FlagmentMark.name, new Vector3(0, 3, -1), Quaternion.identity);
     }
 
     void Update()
@@ -54,9 +48,6 @@ public class PlayerManager : MonoBehaviour, IPlayer
         if (m_StatePresenter.isAttacking)
         {
             m_AttackManager.Attack();
-//#if UNITY_EDITOR
-//            UnityEditor.EditorApplication.isPaused = true;
-//#endif
         }
     }
 
@@ -73,7 +64,7 @@ public class PlayerManager : MonoBehaviour, IPlayer
         if (networkItem is IFragment)
         {
             PlayerStatusPresenter.GetFlagment(m_StatusManager, 1).UpdateFlag(((IFragment)networkItem).FragmentType);
-            //PlayerStateUpdater.
+
             PhotonNetwork.Destroy(networkItem.PassPhotonView());
         }
         if (networkItem is IGameButton)
